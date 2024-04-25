@@ -26,7 +26,6 @@ const navigate =useNavigate();
     // Check if the entered email matches the email format
     const isValidEmail = emailRegex.test(email);
     if (!isValidEmail) {
-      
       setErr('Please enter a valid email!!');
       return false;
     }

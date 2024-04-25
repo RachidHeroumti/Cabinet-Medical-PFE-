@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
@@ -9,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate =useNavigate();
+  const[err,setErr]=useState('');
 
 
   const OnLogin = async () => {
@@ -16,12 +16,12 @@ function Login() {
     const isValidEmail = emailRegex.test(email);
     //
     if (!email || !password) {
-      toast.error("Some fields is Empty !", toastOption);
+      setErr('email or password incorrect!!');
       return;
     } 
-   else if (!isValidEmail) {
-      toast.error("Please enter a valid email!", toastOption);
-      return;
+    if (!isValidEmail) {
+      setErr('Please enter a valid email!!');
+      return false;
     }
     else{
 
@@ -58,7 +58,7 @@ function Login() {
             value={password}
             className='bg-gray-200 w-full outline-none px-3 py-1 rounded-md m-1'
             type='password' placeholder='Password' />
-
+{err&&<span className=' text-red-600 font-semibold'>{err}</span>}
           <button onClick={() => { OnLogin() }}
             className='rounded-full w-full text-center font-bold mt-2 bg-sky-500 hover:bg-sky-600 text-white  p-1'>
             Log in
@@ -72,8 +72,7 @@ function Login() {
 
         </div>
       </div>
-      <ToastContainer />
-    </div>
+          </div>
   )
 }
 

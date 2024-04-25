@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import Cookies from 'js-cookie';
 import axios from "axios";
-import { getDepartmetRoute, getDoctorsRoute } from "../Routes/routes";
+import { addRDVRoute, getDepartmetRoute, getDoctorsRoute } from "../Routes/routes";
+import { useNavigate } from "react-router-dom";
 
 const RDV =()=>{
 const[isDocSelected,setIsDoctorSelected] = useState(false);
-const [textSearch, setTextSearch] = useState("");
+const[textSearch, setTextSearch] = useState("");
 const[user,setUser] =useState("");
 const[doctors,setDoctors]=useState([]);
 const[selectDoctor,setSelectDoctor]=useState([]);
@@ -14,7 +15,12 @@ const[deps,setDeps]=useState([]);
 const[depSelect,setDepSelect]=useState("");
 const[serSelect,setSerSelect]=useState("");
 const[sers,setSers]=useState([]);
+const[messgeEr,setMessageEr]=useState("");
+const[dayRdv,setDayRdv]=useState("1");
+const[monthRdv,setMonthRdv]=useState("1");
+const[isRdvAdded,setisRDVAdded]=useState(false);
 
+const navigate=useNavigate("");
 
 useEffect(()=>{
     const cookieValue = Cookies.get('user');
@@ -67,6 +73,35 @@ const setDoctorInfo=(item)=>{
 }
 
 
+const onAddRDV=async()=>{
+    setMessageEr("");
+//const { Patient, Medecin, day, month } = req.body;
+const Patient=user._id;
+const Medecin=selectDoctor._id;
+try{
+ 
+
+    const today=new Date();
+    if(!Patient||!Medecin||!dayRdv||!monthRdv){
+        setMessageEr("Enter all information and choose a doctor");
+        return false;
+    }
+    if(dayRdv<=today.getDay()&&monthRdv<today.getMonth()+1){
+        setMessageEr("Choose a future date!");
+        return false;
+    }
+    const res=await axios.post(addRDVRoute,{Patient,Medecin,day:dayRdv,month:monthRdv});
+
+    console.log(res)
+    if(res.data.rdv){
+        setisRDVAdded(true);
+    }else{
+        setMessageEr(res.data.message);
+    }
+}catch(er){console.log(er);}
+
+}
+
 
     return(
 <div className="p-12">
@@ -108,9 +143,17 @@ const setDoctorInfo=(item)=>{
 <h1 className=" text-xl font-bold text-gray-950">Date de rendez-vous</h1>
         <div className=" space-x-2 flex ">
             <h1 className="p-1 font-medium">Select  Month :</h1>
-            <input type="number" className=" outline-none rounded-sm p-1 bg-sky-100 hover:bg-sky-200 " max={31} min={1} defaultValue={1}/>
+            <input type="number" className=" outline-none rounded-sm p-1 bg-sky-100 hover:bg-sky-200 " 
+            value={monthRdv}
+            onChange={(e)=>{setMonthRdv(e.target.value)}}
+             max={12} min={1}/>
+
             <h1 className="p-1 font-medium">Day:</h1>
-            <input type="number" className=" outline-none rounded-sm p-1 bg-sky-100 hover:bg-sky-200 " max={12} min={1} defaultValue={1}/>
+            <input type="number" className=" outline-none rounded-sm p-1 bg-sky-100 hover:bg-sky-200 " 
+            max={31} min={1} 
+            value={dayRdv}
+            onChange={(e)=>{setDayRdv(e.target.value)}}
+            />
        
         </div>
 
@@ -126,6 +169,7 @@ const setDoctorInfo=(item)=>{
         </div>
        }
 
+    {messgeEr!=""?<p className=" text-red-600 text-xl">{messgeEr}</p>:""}
 <div className=" space-y-2">
     <h1 className=" text-center text-xl font-bold bg-sky-50 p-2">Doctors</h1>
 
@@ -161,7 +205,25 @@ return (
 </div>
 
     </div>
-    <button className=" fixed bottom-0 end-0 m-16 p-2 rounded-full bg-sky-600 hover:bg-sky-700 text-white text-center ">Add RDV</button>
+    <button className=" fixed bottom-0 end-0 m-16 p-2 rounded-full bg-sky-600 hover:bg-sky-700 text-white text-center "
+    onClick={()=>{onAddRDV()}}>Add RDV</button>
+
+
+
+    {//isRdvAdded? <div className="w-screen h-screen z-10 bg-black/80"></div> 
+    //:""
+    }
+     {isRdvAdded ? <div className='fixed h-screen w-full bg-black/80 top-0 left-0 z-10'>
+         </div> : ""}
+    {isRdvAdded ?
+    <div className=" w-full h-screen fixed top-0 left-0 z-10 p-4  flex justify-center items-center">
+        <div className="flex space-x-2 justify-center bg-white rounded-sm p-5 ">
+            <h1 className=" text-green-600 text-xl">Added Successfully!</h1>
+            <button className=" font-bold border border-sky-700 p-1 rounded-sm" onClick={()=>{setisRDVAdded(false);navigate("/")}}>Done</button>
+            </div>
+ 
+    </div>
+    :""}
 </div>
     )
 }
