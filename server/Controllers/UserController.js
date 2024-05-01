@@ -3,23 +3,25 @@ import User from "../modles/User.js";
 import generateToken from "../config/generateToken.js"
 
 export const Register = async (req, res) => {
-  const { fullName, email, password, isMedecin,
-        isAdmin,nationalId,phon, Departement,Service, profile } = req.body;
+const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
+  ,Departement,Service,address,city ,description,cabenitName } = req.body;
   let user;
   try {
-    if (!fullName || !email || !password) return res.status(401).json({ message: "all info required !" })
+    if (!fullName || !email || !password||!nationalId||!dateNaissance||!phon)
+               return res.status(401).json({ message: "all info required !" })
     user = await User.findOne({ email });
     if (!user) {
       if (!isAdmin) {
         if (!isMedecin) {
           //Patient
-          user = User({ fullName, email, password,nationalId ,phon });
+          user = User({ fullName, email, password,nationalId,dateNaissance ,phon });
           await user.save();
 
           res.status(200).json({
             "_id": user._id,
             "fullName": user.fullName,
             "email": user.email,
+            "Date de Naissance":dateNaissance,
             "phon":phon,
             token: generateToken(user._id)
           });
@@ -27,16 +29,23 @@ export const Register = async (req, res) => {
 
         } else {
           //Medecin
-          user = User({ fullName, email, password,nationalId ,phon, isMedecin,Departement,Service });
+          user = User({ fullName, email, password,nationalId,dateNaissance ,phon, isMedecin,Departement
+            ,Service,address,city,description,cabenitName });
           await user.save();
 
           res.status(200).json({
             "_id": user._id,
             "fullName": user.fullName,
             "email": user.email,
-            "isMedecin": isMedecin,
-            "Department":Departement,
-            "Services":Service,
+            "address": user.address,
+            "isMedecin":  user.isMedecin,
+            "Date_Naissance": user.dateNaissance,
+            "Department": user.Departement,
+            "Services": user.Service,
+            "nationalId":user.nationalId,
+            "city": user.city,
+            "description": user.description,
+            "CabinetName": user.cabenitName ,
             token: generateToken(user._id)
           });
         }

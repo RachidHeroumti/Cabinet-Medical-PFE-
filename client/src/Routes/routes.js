@@ -11,7 +11,8 @@ export const getDepartmetRoute=`${host}/dep/get-deps`;
 export const addRDVRoute=`${host}/rdv/Add-rdv`;
 export const getRDVsRoute=`${host}/rdv/Add-rdv`;
 export const getPatientRDVRoute=`${host}/rdv/get-Myrdvs`;
-export const getdocRDVRoute=`${host}/rdv/get-docs`;
+export const getdocRDVRoute=`${host}/rdv/get-rdvsDoc`;
+
 
 
 

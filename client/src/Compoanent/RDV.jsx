@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import { addRDVRoute, getDepartmetRoute, getDoctorsRoute } from "../Routes/routes";
 import { useNavigate } from "react-router-dom";
+import { Cabstate } from "../Context/cabinatProvider";
 
 const RDV =()=>{
 const[isDocSelected,setIsDoctorSelected] = useState(false);
 const[textSearch, setTextSearch] = useState("");
-const[user,setUser] =useState("");
+const{user} =Cabstate();
 const[doctors,setDoctors]=useState([]);
 const[selectDoctor,setSelectDoctor]=useState([]);
 const[deps,setDeps]=useState([]);
@@ -22,11 +22,6 @@ const[isRdvAdded,setisRDVAdded]=useState(false);
 
 const navigate=useNavigate("");
 
-useEffect(()=>{
-    const cookieValue = Cookies.get('user');
-   cookieValue ? setUser(JSON.parse(cookieValue) ): setUser(null);
-    
-},[])
 
 useEffect(() => {
     const getDoctors = async () => {

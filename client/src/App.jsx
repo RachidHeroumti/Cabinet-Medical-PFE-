@@ -6,6 +6,7 @@ import Register from './Pages/Register'
 import LsDoctors from './Compoanent/LsDoctors'
 import RDV from './Compoanent/RDV'
 import Profile from './Compoanent/Profile'
+import DoctorDashbord from './Compoanent/DoctorDashbord'
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
         <Route path='/doctors' element={<LsDoctors/>}></Route>
         <Route path='/rdv' element={<RDV />} />
         <Route path='/profile' element={<Profile />} />
-
+        <Route path='/dashbord/doctor' element={<DoctorDashbord />} />
       </Routes>
     </BrowserRouter>
   )

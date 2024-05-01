@@ -1,21 +1,17 @@
 import { FaClinicMedical } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"
 import { useState ,useEffect} from "react";
+import { Cabstate } from "../Context/cabinatProvider";
 
 const NavBar =()=>{
-const[user,setUser]=useState("");
+
+  const{user }=Cabstate();
     const navigate =useNavigate();
 
-    useEffect(()=>{
-        const cookieValue = Cookies.get('user');
-       cookieValue ? setUser(JSON.parse(cookieValue) ): setUser(null);
-        
-    },[]);
+
     
     const goToProfile=()=>{
-        const user= Cookies.get('user');
         if(user){
             navigate("/profile");
         }else{
@@ -45,11 +41,17 @@ const[user,setUser]=useState("");
 
             <div className=" flex space-x-10 font-semibold  text-sky-600 ">
                 <a href="#home" className="hover:text-sky-700">Home</a>
-                <a href="#departments" className="hover:text-sky-700">Departements</a>
-                <h1 className="hover:text-sky-700" onClick={()=>{goToProfile()}}>Profile</h1>
-                <a href="#about" className="hover:text-sky-700">About us</a>
-                <IoIosNotifications onClick={()=>{handleShowNotification()}} size={25}  className="hover:text-sky-700"/>
+               
+                <h1 className="hover:text-sky-700 cursor-pointer" onClick={()=>{goToProfile()}}>Profile</h1>
 
+                
+
+                <a href="#about" className="hover:text-sky-700">About us</a>
+              { // <IoIosNotifications onClick={()=>{handleShowNotification()}} size={25}  className="hover:text-sky-700"/>
+              }
+
+                <h1 className="hover:bg-sky-900 bg-sky-700 cursor-pointer text-white rounded-md px-1" 
+                onClick={()=>{navigate('/register');}}>Sign in</h1>
             </div>
            
         </div>

@@ -5,7 +5,7 @@ import ConnectDB from "./config/db.js"
 import userRoute from "./Routes/UserRoute.js"
 import DepartmentRoute from "./Routes/DepartementRoute.js"
 import RdvRoute from "./Routes/RDV_Route.js"
-
+import TestRout from "./Routes/TestMD_Route.js"
 
 dotenv.config();
 const app = expres();
@@ -16,10 +16,10 @@ app.use(cors());
 
 ConnectDB();
 
-
 app.use("/pfe/api/", userRoute);
 app.use("/pfe/api/dep", DepartmentRoute);
 app.use("/pfe/api/rdv", RdvRoute);
+app.use("/pfe/api/test", TestRout);
 
 
 

@@ -14,7 +14,6 @@ const Home =()=>{
             <NavBar/>
             <Hero/>
             <Services/>
-            <Departement/>
            <AboutUs/>
             <Footer/>
            
