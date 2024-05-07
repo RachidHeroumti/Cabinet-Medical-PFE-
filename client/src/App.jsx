@@ -17,13 +17,13 @@ function App() {
       <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/doctors' element={<LsDoctors/>}></Route>
-        <Route path='/rdv' element={<RDV />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/dashbord/doctor' element={<DoctorDashbord />} />
       </Routes>
     </BrowserRouter>
   )
 }
+// <Route path='/rdv' element={<RDV />} />
+//<Route path='/doctors' element={<LsDoctors/>}></Route>
 
 export default App

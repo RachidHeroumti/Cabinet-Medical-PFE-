@@ -21,8 +21,10 @@ const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
             "_id": user._id,
             "fullName": user.fullName,
             "email": user.email,
-            "Date de Naissance":dateNaissance,
-            "phon":phon,
+            "Date de Naissance":user.dateNaissance,
+            "phon":user.phon,
+            "isAdmin":user.isAdmin,
+            "isMedecin":user.isMedecin,
             token: generateToken(user._id)
           });
 
@@ -53,7 +55,7 @@ const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
         //Admin:
       }
 
-    } else return res.status(401).json({ message: "User alredy Existe !" });
+    } else return res.status(200).json({ message: "User alredy Existe !" });
 
 
 
@@ -74,11 +76,15 @@ export const Login = async (req, res) => {
       }
       res.status(200).json({
         "_id": user._id,
-        "fullName": user.fullName,
-        "email": user.email,
-        token: generateToken(user._id)
+            "fullName": user.fullName,
+            "email": user.email,
+            "Date de Naissance":user.dateNaissance,
+            "phon":user.phon,
+            "isAdmin":user.isAdmin,
+            "isMedecin":user.isMedecin,
+            token: generateToken(user._id)
       });
-    } else res.status(401).json({ message: "Email or Password inccorrect !" });
+    } else res.status(200).json({ message: "Email or Password inccorrect !" });
 
   } catch (err) { console.log(err); }
 }
@@ -135,4 +141,18 @@ export const updateUser=async (req,res)=>{
   "profile":upUser.profile});
  
   }catch(err){console.log(err);}
+}
+export const getuserByCIN=async(req,res)=>{
+  const {nationalId} = req.params;
+  try{
+    const usrPat=await User.findOne({nationalId});
+    if(!usrPat)return res.json({message:"User not found"}) ;
+     console.log(usrPat);
+     return res.status(200).json({
+      "_id": usrPat._id,
+    "fullName": usrPat.fullName,
+    "email": usrPat.email,
+    "CIN":usrPat.nationalId,
+    "phon":usrPat.phon,}); 
+  }catch(err){console.log(err)}
 }

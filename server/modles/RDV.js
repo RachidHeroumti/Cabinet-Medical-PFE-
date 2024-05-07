@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const today = new Date();
-const day = today.getDay();
 
 const RdvSchema = new mongoose.Schema({
   Patient: {
@@ -16,7 +15,7 @@ const RdvSchema = new mongoose.Schema({
     required: true,
   }
   ,
-  Num: { type: Number, required: true }
+  Num: { type: Number, required: true },
 
 }, { timestamps: true })
 

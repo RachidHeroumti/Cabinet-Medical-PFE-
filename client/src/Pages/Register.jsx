@@ -99,7 +99,9 @@ else{
    if(res.data._id){
     Cookies.set("ut",res.data.token, { expires: 10 }) ;
     Cookies.set('user', JSON.stringify(res.data));
-    navigate("/rdv");
+    navigate("/profile");
+   }else{
+    setErr(res.data.message);
    }
   }catch(er){console.error(er);}
  

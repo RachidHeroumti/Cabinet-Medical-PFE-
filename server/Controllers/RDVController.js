@@ -89,8 +89,10 @@ export const getMyRDVs = async (req, res) => {
   try {
     const MyRdvs = await RDV.find({ Patient: userId }).populate("Medecin", "-password").populate("Patient", "-password").exec();
 
-    if (!MyRdvs) return res.status(401).json({ message: "No Rdv found" });
-    return res.status(400).json({ MyRdvs });
+    if (!MyRdvs) return res.status(204).json({ message: "No Rdv found" });
+    
+    return res.json({ MyRdvs });
+
   } catch (err) { console.log(err); }
 }
 
@@ -103,6 +105,8 @@ export const getDodRdvs= async(req,res)=>{
     return res.status(400).json({ MyRdvs });
   } catch (err) { console.log(err); }
 }
+
+
 
 /**
  *  try {

@@ -3,11 +3,12 @@ import { IoIosNotifications } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import { Cabstate } from "../Context/cabinatProvider";
+import Cookies from "js-cookie"
 
 const NavBar =()=>{
-
-  const{user }=Cabstate();
-    const navigate =useNavigate();
+  const[logState,setLogState]=useState("Login");
+  const{user,setUser}=Cabstate();
+  const navigate =useNavigate();
 
 
     
@@ -44,14 +45,12 @@ const NavBar =()=>{
                
                 <h1 className="hover:text-sky-700 cursor-pointer" onClick={()=>{goToProfile()}}>Profile</h1>
 
-                
-
                 <a href="#about" className="hover:text-sky-700">About us</a>
               { // <IoIosNotifications onClick={()=>{handleShowNotification()}} size={25}  className="hover:text-sky-700"/>
               }
 
                 <h1 className="hover:bg-sky-900 bg-sky-700 cursor-pointer text-white rounded-md px-1" 
-                onClick={()=>{navigate('/register');}}>Sign in</h1>
+                onClick={()=>{navigate("/register")}}>{logState}/Register</h1>
             </div>
            
         </div>

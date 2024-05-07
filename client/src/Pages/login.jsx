@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { Cabstate } from '../Context/cabinatProvider';
 
 
 function Login() {
@@ -9,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate =useNavigate();
   const[err,setErr]=useState('');
-
+const{setUser}=Cabstate();
 
   const OnLogin = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,11 +31,14 @@ function Login() {
           email,password
         })
     
-        console.log(res.data);
+        console.log(res);
        if(res.data._id){
         Cookies.set("ut",res.data.token, { expires: 10 }) ;
         Cookies.set('user', JSON.stringify(res.data));
-        navigate("/rdv");
+        setUser(res.data);
+        navigate("/profile");
+       }else{
+        setErr(res.data.message);
        }
       }catch(er){console.error(er);}
      

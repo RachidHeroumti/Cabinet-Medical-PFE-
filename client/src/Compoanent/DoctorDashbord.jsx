@@ -6,15 +6,19 @@ import 'react-calendar/dist/Calendar.css';
 import { FaHeart } from "react-icons/fa";
 import { Cabstate } from '../Context/cabinatProvider';
 import axios from 'axios';
+import { addRDVRoute } from '../Routes/routes';
+import { useNavigate } from 'react-router-dom';
 
 export default function DoctorDashbord() {
 const [date, setDate] = useState(new Date());
 const{doctorSelected} =Cabstate();
 const[isFabourite,setIsFabourite]=useState(false)
+const {user} =Cabstate();
+const navigate =useNavigate();
 
 useEffect(() => {
   // Initialization tasks
-  console.log('Component mounted');
+
   return () => {
       // Cleanup tasks (equivalent to onDestroy)
       console.log('Component unmounted');
@@ -27,10 +31,28 @@ useEffect(() => {
 }, []);
 
 
+
+const onAddRDV =async()=>{
+  if(user){
+    try{
+      const Patient=user._id;
+      const Medecin=doctorSelected._id;
+      //day & month
+      const res= await axios.post(addRDVRoute,{Patient,Medecin,day:date.getDay(),month:date.getMonth()+1});
+          console.log(res);
+      
+        }catch(err){console.log(err);}
+  }else{
+    navigate("/login");
+  }
+ 
+}
+
+
   return (
      <div className='max-w-[1640px] xl:px-52 p-10 bg-gray-300  h-full space-y-10'>
 
-      <div className='space-x-5 space-y-5 md:flex  '>
+      <div className='space-x-5 space-y-5 md:flex '>
         <div className='md:w-2/3 bg-sky-50 p-4 rounded'>
        <div className=' flex space-x-3'>
           <img src='https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600' alt=''
@@ -78,7 +100,9 @@ useEffect(() => {
       <div className=' flex justify-between p-2'>
       {date && <p className='text-xl'>{date.toDateString().split(' ').slice(0, 4).join(' ')}</p>}
 
-      <button className=' bg-sky-900 text-white p-1 rounded-md '>+ RDV</button>
+      <button className=' bg-sky-900 text-white p-1 rounded-md '
+      onClick={()=>{onAddRDV()}}
+      >+ RDV</button>
       </div>
       
    

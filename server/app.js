@@ -6,8 +6,8 @@ import userRoute from "./Routes/UserRoute.js"
 import DepartmentRoute from "./Routes/DepartementRoute.js"
 import RdvRoute from "./Routes/RDV_Route.js"
 import TestRout from "./Routes/TestMD_Route.js"
-
-dotenv.config();
+import NoteRoute from "./Routes/NoteRoute.js"
+dotenv.config(); 
 const app = expres();
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +20,8 @@ app.use("/pfe/api/", userRoute);
 app.use("/pfe/api/dep", DepartmentRoute);
 app.use("/pfe/api/rdv", RdvRoute);
 app.use("/pfe/api/test", TestRout);
+
+app.use("/pfe/api/note", NoteRoute );
 
 
 
