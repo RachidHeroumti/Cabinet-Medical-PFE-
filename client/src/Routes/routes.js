@@ -5,7 +5,6 @@ export const loginRoute=`${host}/login`;
 export const getDoctorsRoute=`${host}/get-doctors`;
 export const getUserBycinRoute=`${host}/get-userbycin`;
 
-
 export const getDepartmetRoute=`${host}/dep/get-deps`;
 
 
@@ -17,6 +16,8 @@ export const getdocRDVRoute=`${host}/rdv/get-rdvsDoc`;
 
 export const getPatTestsRoute=`${host}/test/get-PatTests`;
 
+
+export const addNoteRoute=`${host}/note/Add-note`;
 
 
 

@@ -79,8 +79,7 @@ useEffect(() => {
 
 <div id="home" className=" flex flex-col justify-center overflow-visible pt-16">
   <div className=" flex   sm:flex-col w-full p-4 justify-center items-center space-y-2 bg-sky-200">
-         <h1 className="text-center text-sky-700 text-3xl font-bold">Welecom To Our
-         <span className=" text-center text-2xl font-semibold text-sky-600 px-2">Cabinet Medical</span> </h1>
+         <h1 className="text-center text-sky-700 text-3xl font-bold p-4">Cabinet Medical </h1>
             
                 <p className="p-2 text-center px-12">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                  Facere, vitae quas? Repellendus odio, 

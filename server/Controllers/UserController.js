@@ -142,17 +142,20 @@ export const updateUser=async (req,res)=>{
  
   }catch(err){console.log(err);}
 }
+
+
 export const getuserByCIN=async(req,res)=>{
   const {nationalId} = req.params;
   try{
     const usrPat=await User.findOne({nationalId});
     if(!usrPat)return res.json({message:"User not found"}) ;
-     console.log(usrPat);
+   
      return res.status(200).json({
       "_id": usrPat._id,
     "fullName": usrPat.fullName,
     "email": usrPat.email,
     "CIN":usrPat.nationalId,
-    "phon":usrPat.phon,}); 
+    "phon":usrPat.phon,
+  "profile":usrPat.profile}); 
   }catch(err){console.log(err)}
 }

@@ -2,11 +2,11 @@ import Note from "../modles/Note.js";
 
 
 export const addNote=async(req,res)=>{
-    const {Medecin,Patien,noteText}=req.body;
+    const {Medecin,Patient,noteText}=req.body;
 
     try{
         const noteAdded=Note({
-            Patien,Medecin,noteText
+            Patient,Medecin,noteText
         })
         await noteAdded.save();
         return res.status(200).json({noteAdded});
@@ -14,9 +14,9 @@ export const addNote=async(req,res)=>{
 }
 
 export const getNotePatient=async(req,res)=>{
-    const{Patien}=req.body
+    const{Patient}=req.body
     try{
-        const notes= await Note.find({Patien}) ;
+        const notes= await Note.find({Patient}) ;
         if(!notes) return res.json({message :"There no notes for this patien "});
         return res.status(200).json({notes});
 

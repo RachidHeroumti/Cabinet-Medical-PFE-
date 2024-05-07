@@ -3,7 +3,7 @@ import { Cabstate } from "../Context/cabinatProvider";
 import { IoMdSearch } from "react-icons/io";
 import { MdAddCall, MdSearchOff } from "react-icons/md";
 import axios from "axios";
-import { getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
+import { addNoteRoute, addRDVRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
 import { useNavigate } from "react-router-dom";
 import { MdMode,MdDelete } from "react-icons/md";
 import PatientDessier from "./PatientDessier";
@@ -25,6 +25,8 @@ const Profile=()=>{
     const[txtSearchCIN,setTextSearchCIN]=useState("")
     const[patSearched,setPatsearched]=useState([])
     const[isPatDessier,setIsPatDessier]=useState(false)
+    const[patAddNoteCIN,setPatAddNoteCin]=useState("");
+    const[noteText,setNoteText]=useState("");
 
   useEffect(()=>{
     if(user){
@@ -38,23 +40,24 @@ const Profile=()=>{
   useEffect(()=>{
     const getRDVs_Tests=async()=>{
       try{
+        if(!user._id) return;
         if(!isMedecin){
-
             const userId=user._id;
-           
-            const resRDVs = await axios.get(getPatientRDVRoute,{userId});
+            
+            const resRDVs = await axios.get(`${getPatientRDVRoute}/${userId}`);
             const resTests = await axios.get(getPatTestsRoute,{userId});
 
             if(resRDVs.data.MyRdvs){
                 setMyRDVs(resRDVs.data.MyRdvs);
             }
             if(resRDVs.data.tests){
-                setMyTests(resRDVs.data.tests);     
+                setMyTests(resTests.data.tests);     
             }
             
         }
         else{
             const resRDVs = await axios.get(getdocRDVRoute,{userId:user._id});
+
         }
         
         }catch(err){console.log(err);}
@@ -65,16 +68,37 @@ const Profile=()=>{
 const GetPtientByCin=async()=>{
  try{
 const nationalId=txtSearchCIN.toString();
-console.log(nationalId);
 const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
-  console.log(res);
+ 
    if(res.data._id){
-    setPatsearched(res.data._id);
-    setIsPatDessier(true);
+    setPatsearched(res.data);
    }
 
  }catch(err){ console.log(err)}
 }
+  const onAddNote=async()=>{
+  if(!noteText||!patAddNoteCIN) return console.log("some info not there");
+     try{
+      const nationalId=patAddNoteCIN.toString();
+      const resUser = await axios.get(`${getUserBycinRoute}/${nationalId}`);
+    
+        if(resUser.data._id){
+          const Patient=resUser.data._id;
+          const resAddtest=await axios.post(addNoteRoute,
+            {Patient,Medecin:user._id,noteText})
+             console.log(resAddtest.data);
+            if(resAddtest.data.noteAdded._id){
+              setNoteText("");
+              setPatAddNoteCin("");
+              console.log("added succefully");
+            }
+        }else{
+          console.log("errooor in getting patient id by cin");
+        }
+
+     }catch(err){console.log(err)}
+
+  }
     return(
         <div className="">
             {isAdmin&&
@@ -152,9 +176,10 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                            >Search</button>
                           </div>
 
-                       { patSearched.length>=1&&  <div className=" flex bg-gray-300 p-2 rounded " onClick={()=>{}}>
-                            <img src="jhhbgg" alt=""  className="w-[50px] h[50px] rounded-full"/>
-                            <h1 className=" text-gray-950 ">Full Name</h1>
+                       { patSearched._id&&  <div className=" flex bg-gray-300 p-2 rounded space-x-2 " onClick={()=>{setIsPatDessier(true)}}>
+                            <img src={patSearched.profile} alt="" 
+                             className="w-[60px] h[60px] rounded-full"/>
+                            <h1 className=" text-gray-950 ">{patSearched.fullName}</h1>
                           </div>}
                         
                       </div>
@@ -212,9 +237,16 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
      {isMedecin&&<div className=" w-full flex flex-col items-center bg-gray-50 p-2">
                     
                   <div className=" bg-gray-300 p-4 w-full rounded space-y-2 ">
-                    <input type="text" placeholder="Enter CIN of Patient" className=" outline-none p-1 rounded"/>
-                    <textarea className="text-xl outline-none p-2 w-full rounded" placeholder="add note ..."/><br></br>
-                    <button className=" text-xl rounded-xl p-1 px-5 text-white bg-sky-700">Add Note</button>
+                    <input type="text" placeholder="Enter CIN of Patient" className=" outline-none p-1 rounded"
+                     value={patAddNoteCIN}
+                     onChange={(e)=>{setPatAddNoteCin(e.target.value)}}/>
+                    <textarea className="text-xl outline-none p-2 w-full rounded"
+                       placeholder="add note ..."
+                       value={noteText} 
+                       onChange={(e)=>{setNoteText(e.target.value)}}/><br></br>
+                    <button className=" text-xl rounded-xl p-1 px-5 text-white bg-sky-700"
+                    onClick={()=>{onAddNote()}}
+                    >Add Note</button>
                   </div>
 
                  </div> 
@@ -252,9 +284,9 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
      {isPatDessier&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
      {isPatDessier&&<div className=" z-50 fixed top-0  end-0 start-0 ">
  
-      <PatientDessier setIs={setIsPatDessier}/>
+      <PatientDessier setIs={setIsPatDessier} patSearched={patSearched}/>
       </div>}
-           
+
         </div>
     )
 }

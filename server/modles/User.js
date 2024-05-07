@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   nationalId: { type: String ,required: true, unique: true},
   dateNaissance:{type:Date,required :true},
   phon: { type: String ,unique :true ,required: true, unique: true},
-  profile: {type: String,default: "",},
+  profile: {type: String,default: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=600",},
 
   isAdmin: {type: Boolean,required: true,default: false},
   isMedecin: { type: Boolean, required: true, default: false},

@@ -8,10 +8,12 @@ import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 import { FaIdCard,FaPhone } from "react-icons/fa6";
 import { FaHospitalUser } from "react-icons/fa";
+import { FaUserDoctor } from "react-icons/fa6";
 import { RiUserLocationFill } from "react-icons/ri";
 import { FaCalendarDay } from "react-icons/fa";
 import { getDepartmetRoute, registerRoute } from '../Routes/routes';
 import { Cabstate } from '../Context/cabinatProvider';
+
 
 
 
@@ -33,9 +35,9 @@ function Register() {
    const[depSelect,setDepSelect]=useState("");
    const[serSelect,setSerSelect]=useState("");
    const[depIdSelectd,setDepIdSelected]=useState("");
+   const[MLN,setMLN]=useState("");
 
-   const {user,setUser}=Cabstate();
-
+  const {user,setUser}=Cabstate();
   const[err,setErr]=useState('');
   const navigate =useNavigate();
   const[isDoctor,setIsDoctot]=useState(false);
@@ -112,7 +114,7 @@ else{
 const onAddDoctor =async()=>{
 
     //
-    if (!fullName || !email || !password||!address ||!city ||!birthday ||!cabinetName ||!description||!depSelect||!serSelect) {
+    if (!fullName || !email || !password||!address ||!city ||!birthday ||!cabinetName ||!description||!depSelect||!serSelect||!MLN) {
       setErr('Some fields are Empty !');
       return;
     }
@@ -326,7 +328,7 @@ const onAddDoctor =async()=>{
       className=' w-full outline-none px-3  rounded-md  bg-transparent font-medium'
       type='text'
       placeholder='Date de naissance * DD/MM/YYYY ' />
-</div>
+    </div>
 
 
       <div className='bg-gray-100 flex border border-gray-800 p-1 items-center text-gray-700 justify-between'>
@@ -349,6 +351,16 @@ const onAddDoctor =async()=>{
                   }
               
             </select>
+      </div>
+
+
+      <div className='bg-gray-100 flex border border-gray-800 p-1 items-center text-gray-900'>
+      <FaUserDoctor size={30} className=' text-gray-950'/>
+      <input onChange={(e) => { setMLN(e.target.value) }}
+            value={MLN}
+            className=' w-full outline-none px-3  rounded-md  bg-transparent font-medium'
+            type='text'
+            placeholder='Medical license number *' />
       </div>
 
 
