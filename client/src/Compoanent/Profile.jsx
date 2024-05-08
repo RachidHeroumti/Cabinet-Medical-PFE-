@@ -30,8 +30,8 @@ const Profile=()=>{
 
   useEffect(()=>{
     if(user){
-        if(user.isAdmin)setIsAdmin(true);
-        else if(user.isMedecin) setIsMedecin(true);  
+        if(user.isAdmin===true)setIsAdmin(true);
+        else if(user.isMedecin===true) setIsMedecin(true);  
     }else{navigate("/");}
   },[user])
 
@@ -55,15 +55,20 @@ const Profile=()=>{
             }
             
         }
-        else{
-            const resRDVs = await axios.get(getdocRDVRoute,{userId:user._id});
-
+        else if(!isAdmin){
+          const userId=user._id;
+           console.log(userId);
+            const resRDVs = await axios.get(`${getdocRDVRoute}/${userId}`);
+             console.log(resRDVs);
+            if(resRDVs.data.MyRdvs){
+              setMyRDVs(resRDVs.data.MyRdvs);
+          }
         }
         
         }catch(err){console.log(err);}
     }
     getRDVs_Tests();
-  },[user]);
+  },[user,isAdmin,isMedecin]);
 
 const GetPtientByCin=async()=>{
  try{
@@ -99,6 +104,17 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
      }catch(err){console.log(err)}
 
   }
+
+ const DeleteRdv =(item)=>{
+  const rdvs=MyRDVs;
+   setMyRDVs(
+    rdvs.filter((it)=>{
+      return it._id!== item._id;
+    })
+   )
+ }
+
+
     return(
         <div className="">
             {isAdmin&&
@@ -211,16 +227,17 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                   {
                     MyRDVs.map((item,i)=>{
                       return(
-                        <div key={1} className=" flex justify-between p-4  bg-gray-200">
+                        <div key={i} className=" flex justify-between p-4  bg-gray-200">
                         <div className="">
-                        <h1 className=" text-xl font-bold text-gray-950">Dr.Ahmed Hassan</h1>
-                        <h1>Location : hay dakhla Rue alba 14</h1>
+                        <h1 className=" text-xl font-bold text-gray-950">{isMedecin?item.Patient.fullName:item.Medecin.fullName}</h1>
+                        <h1>Location : {item.Medecin.address}</h1>
                         </div>
                         <div className=" font-semibold text-gray-950">
-                         <h1>Date : 12/07/2024 </h1> 
-                         <h1>Time : 11:00</h1>
+                         <h1>Date : {item.dateRdv} </h1> 
+                         <h1>Time : {item.Num+7}:00</h1>
                          <div className=" space-x-4 flex justify-end">
-                         <MdDelete size={24} className=" text-sky-900 hover:text-sky-700" />
+                      { !isMedecin&&  <MdDelete size={24} className=" text-sky-900 hover:text-sky-700" 
+                          onClick={()=>{DeleteRdv(item)}}/>}
                
                          </div>
                         </div>

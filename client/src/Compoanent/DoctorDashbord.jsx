@@ -8,6 +8,9 @@ import { Cabstate } from '../Context/cabinatProvider';
 import axios from 'axios';
 import { addRDVRoute } from '../Routes/routes';
 import { useNavigate } from 'react-router-dom';
+import { GrStatusGood } from "react-icons/gr";
+
+
 
 export default function DoctorDashbord() {
 const [date, setDate] = useState(new Date());
@@ -15,6 +18,7 @@ const{doctorSelected} =Cabstate();
 const[isFabourite,setIsFabourite]=useState(false)
 const {user} =Cabstate();
 const navigate =useNavigate();
+const[isRDVadded,setIsRDVadded]=useState(false);
 
 useEffect(() => {
   // Initialization tasks
@@ -39,11 +43,18 @@ const onAddRDV =async()=>{
       const Medecin=doctorSelected._id;
       //day & month
       const res= await axios.post(addRDVRoute,{Patient,Medecin,day:date.getDay(),month:date.getMonth()+1});
-          console.log(res);
+          if(res.data.rdv._id){
+            setIsRDVadded(true);
+          }
+          if(res.data.message){
+            console.log(res.data.message);
+            setDate(res.data.message)
+          }
       
         }catch(err){console.log(err);}
   }else{
     navigate("/login");
+    return;
   }
  
 }
@@ -99,14 +110,13 @@ const onAddRDV =async()=>{
       </div>
       <div className=' flex justify-between p-2'>
       {date && <p className='text-xl'>{date.toDateString().split(' ').slice(0, 4).join(' ')}</p>}
-
+      {isRDVadded&&<GrStatusGood size={25} className=' text-green-500'/>}
       <button className=' bg-sky-900 text-white p-1 rounded-md '
       onClick={()=>{onAddRDV()}}
       >+ RDV</button>
       </div>
       
-   
-     
+
           </div>
 
         </div>
