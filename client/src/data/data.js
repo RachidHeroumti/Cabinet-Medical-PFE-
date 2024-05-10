@@ -1,10 +1,8 @@
 
 export const AllServices =[
-    "Radiographies",
-    "Électrocardiogramme (ECG)",
-    "IRM (Imagerie par Résonance Magnétique)",
-    "Échographie",
-    "Holter cardiaque",
-    "Cathétérisme cardiaque"
+    "Trouver des specialiste ",
+    "Preciser un Rendez-vous",
+    "Acces aux Analyses Medicales ",
+    "Consultaion Medicale",
 
 ]

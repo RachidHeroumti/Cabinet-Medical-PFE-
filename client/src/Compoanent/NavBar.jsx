@@ -34,10 +34,10 @@ const NavBar =()=>{
 
 
     return(
-        <div className=" max-w-[1640px] fixed top-0 w-full flex justify-between  bg-white text-sky-700  p-4">
+        <div className=" max-w-full fixed top-0 w-full flex justify-between  bg-sky-300 text-sky-900  p-4  ">
             <div className=" flex space-x-2">
             <FaClinicMedical size={30} className=" text-sky-700"/>
-            <h2 className=" text-2xl font-bold">MasaHHati</h2>
+            <h2 className=" text-2xl font-bold">Doctori</h2>
             </div>
 
             <div className=" flex space-x-10 font-semibold  text-sky-600 ">

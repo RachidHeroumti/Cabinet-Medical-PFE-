@@ -5,7 +5,7 @@ export default function About() {
     <div className=' p-4 flex bg-sky-200 my-3 ' id='about'>
         <div className=' grid sm:grid-cols-2 gap-5'>
             <div className='text-xl flex flex-col space-y-4'>
-                <h1 className=' text-2xl font-bold text-center'>MasaHHati</h1>
+                <h1 className=' text-2xl font-bold text-center'>Doctori</h1>
                 <p className=' text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae vitae, 
                     iste magni temporibus reiciendis dicta placeat fuga provident minima dolor quo, 
                     aperiam deserunt facilis, nihil quis laborum dolorem voluptas omnis?</p>

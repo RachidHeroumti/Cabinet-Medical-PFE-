@@ -10,13 +10,11 @@ import AboutUs from "../Compoanent/AboutUs"
 const Home =()=>{
 
     return(
-        <div className=" max-w-[1640px] h-[500px]">
-            <NavBar/>
+        <div className=" max-w-[1640px] h-[500px] pt-12 bg-sky-200">
             <Hero/>
             <Services/>
            <AboutUs/>
-            <Footer/>
-           
+            <Footer/>  
         </div>
     )
 }

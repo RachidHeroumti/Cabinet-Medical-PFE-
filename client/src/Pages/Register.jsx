@@ -162,9 +162,9 @@ const onAddDoctor =async()=>{
 
 
   return (
-    <div className='max-w-[1640] p-4 flex  justify-center items-center py-12 '>
+    <div className='max-w-[1640] p-4 flex  justify-center   pt-12'>
 
-      <div className='w-[800px] p-5 bg-gray-50 shadow-lg rounded-md '>
+      <div className='w-[800px] p-5 bg-gray-100 shadow-2xl rounded-md mt-10'>
 
         <div className=' flex w-full p-2 space-x-2'>
         <button className={`w-full p-1 ${!isDoctor ? "bg-sky-700 text-white" : " border border-sky-600"}`}
@@ -335,7 +335,7 @@ const onAddDoctor =async()=>{
       <h1 className=' text-center text-gray-900 '>Department :</h1>
       <select value={depSelect} onChange={(e)=>setDepSelect(e.target.value)} className="p-1 outline-none">
         <option value="">Select  depratment</option>
-        {department.map((item, i) => (
+        {department && department.map((item, i) => (
           <option key={i} value={item.name}>
             {item.name}
           </option>
@@ -343,7 +343,7 @@ const onAddDoctor =async()=>{
       </select>
    <h1 className=' text-center text-gray-800 '>Service :</h1>
       <select className="px-2 p-1 outline-none " value={serSelect} onChange={(e)=>{setSerSelect(e.target.value)}} >
-                { Services&&Services.map((item,i)=>{
+                { department&&Services&&Services.map((item,i)=>{
       return ( 
           <option key={i} className=" p-1 ">{item}</option>
              )

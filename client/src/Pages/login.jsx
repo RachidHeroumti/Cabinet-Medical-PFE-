@@ -49,8 +49,9 @@ const{setUser}=Cabstate();
   }
 
   return (
-    <div className='max-w-[1640] p-4 flex justify-center py-12'>
-      <div className='w-[400px] p-5 bg-gray-50 shadow-lg rounded-md '>
+    <div className='max-w-[1640] p-4 flex justify-center items-center py-16'>
+
+      <div className='w-[400px] p-5 bg-gray-100 shadow-2xl rounded-md m-10 '>
         <h1 className=' text-2xl font-bold text-sky-600 p-2'> Log in</h1>
         <div>
           <input onChange={(e) => { setEmail(e.target.value) }}
@@ -76,7 +77,8 @@ const{setUser}=Cabstate();
 
         </div>
       </div>
-          </div>
+
+    </div>
   )
 }
 

@@ -116,7 +116,7 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
 
 
     return(
-        <div className="">
+        <div className=" mt-12">
             {isAdmin&&
              <div className="">
                 <div className="p-4 bg-sky-300 flex justify-center items-center">
@@ -212,7 +212,6 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                     }
 
                  </div>
-              
 
             </div>
 

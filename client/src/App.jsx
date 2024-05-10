@@ -7,12 +7,14 @@ import LsDoctors from './Compoanent/LsDoctors'
 import RDV from './Compoanent/RDV'
 import Profile from './Compoanent/Profile'
 import DoctorDashbord from './Compoanent/DoctorDashbord'
+import NavBar from './Compoanent/NavBar'
 
 function App() {
 
 
   return (
-<BrowserRouter>
+<BrowserRouter >
+       <NavBar/>
       <Routes>
       <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
