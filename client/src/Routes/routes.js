@@ -2,6 +2,8 @@ const host='http://localhost:5000/pfe/api'
 
 export const registerRoute=`${host}/register` ;
 export const loginRoute=`${host}/login`;
+
+export const getPatientsRoute=`${host}/get-patients`;
 export const getDoctorsRoute=`${host}/get-doctors`;
 export const getUserBycinRoute=`${host}/get-userbycin`;
 

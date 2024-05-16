@@ -18,11 +18,10 @@ const UserSchema = new mongoose.Schema({
   address:{type:String},
   city:{type:String},
   description :{ type :String },
-  cabenitName:{ type :String}
-
+  cabenitName:{ type :String},
+  mln:{type:String}
 
 }, { timestamps: true });
-
 
 
 UserSchema.methods.matchPassword = async function (Enterpassword) {

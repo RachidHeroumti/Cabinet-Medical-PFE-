@@ -9,6 +9,8 @@ import axios from 'axios';
 import { addRDVRoute } from '../Routes/routes';
 import { useNavigate } from 'react-router-dom';
 import { GrStatusGood } from "react-icons/gr";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -19,6 +21,14 @@ const[isFabourite,setIsFabourite]=useState(false)
 const {user} =Cabstate();
 const navigate =useNavigate();
 const[isRDVadded,setIsRDVadded]=useState(false);
+
+const toastOption = {
+  position: "bottom-right",
+  autoClose: 3000,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "dark",
+};
 
 useEffect(() => {
   // Initialization tasks
@@ -42,13 +52,20 @@ const onAddRDV =async()=>{
       const Patient=user._id;
       const Medecin=doctorSelected._id;
       //day & month
-      const res= await axios.post(addRDVRoute,{Patient,Medecin,day:date.getDay(),month:date.getMonth()+1});
-          if(res.data.rdv._id){
+      console.log(date)
+      const day = date.getDate();
+      const month = date.getMonth();
+       console.log(day,month);
+      const res= await axios.post(addRDVRoute,{Patient,Medecin,day,month});
+         console.log(res);
+
+         if (typeof res.data.rdv !== 'undefined' && res.data.rdv._id){
+            toast.success("Added Successfuly !", toastOption);
             setIsRDVadded(true);
           }
-          if(res.data.message){
+          else if(typeof res.data.message !== 'undefined'){
             console.log(res.data.message);
-            setDate(res.data.message)
+            toast.error("there is already an appointment with this doctor !", toastOption);
           }
       
         }catch(err){console.log(err);}
@@ -61,7 +78,7 @@ const onAddRDV =async()=>{
 
 
   return (
-     <div className='max-w-[1640px] xl:px-52 p-10 bg-gray-300  h-full space-y-10'>
+     <div className='max-w-[1640px] xl:px-52 p-10 bg-gray-300  h-full space-y-10 pt-16'>
 
       <div className='space-x-5 space-y-5 md:flex '>
         <div className='md:w-2/3 bg-sky-50 p-4 rounded'>
@@ -70,8 +87,8 @@ const onAddRDV =async()=>{
           className=' w-[150px] h-[150px]'/>
           <div className=' text-gray-700 w-full'>
              <h1 className='text-xl font-bold text-gray-900'>Dr. {doctorSelected.fullName}</h1>
-             <h2 className='text-gray-700 text-xl' >{doctorSelected.Service}</h2>
-             <p className='text-xl'>{doctorSelected.address}</p>
+             <h2 className='text-gray-700 text-xl' >Specialite :<span className='text-gray-900 px-2 '>{doctorSelected.Service}</span></h2>
+             <p className='text-xl'>Address:<span className='text-gray-900 px-2 '>{doctorSelected.address}</span></p>
              <p className='text-sky-700'>{doctorSelected.email}</p>
              <div className=" flex sm:space-x-5  text-xl font-medium text-gray-900">
                 <h1 className="">{doctorSelected.phon}</h1>
@@ -79,18 +96,18 @@ const onAddRDV =async()=>{
             <FaWhatsapp size={25} className=" text-sky-700 hover:bg-white hover:text-sky-800"/>
             </div>
             <div>
-              <div className=' text-xl text-gray-900 flex space-x-3 '>
+              <div className=' text-gray-900 flex space-x-3 '>
                 <h1 className=' text-gray-700'>Monday <span className=' text-gray-700 '>/</span> friday </h1>
                 <h1 className=' font-semibold  '>9:00 <span className=' text-gray-700 px-1'>--</span> 18:00</h1> 
               </div>
 
-              <div className=' text-xl text-gray-900 flex space-x-3 '>
+              <div className=' text-gray-900 flex space-x-3 '>
                 <h1 className=' text-gray-700'>Saturday </h1>
                 <h1 className=' font-semibold  '>9:00 <span className=' text-gray-700 px-1'>--</span> 12:45</h1> 
               </div>
             </div>
          </div>
-         <div className='px-4 p-2 flex justify-end  text-gray-700  top-0 end-0'>
+         <div className='px-4 p-2 flex justify-end  text-gray-400  top-0 end-0'>
         <FaHeart size={25}  className={isFabourite&&" text-red-600"}
           onClick={()=>{!isFabourite? setIsFabourite(true):setIsFabourite(false)}} />
         </div>
@@ -110,7 +127,6 @@ const onAddRDV =async()=>{
       </div>
       <div className=' flex justify-between p-2'>
       {date && <p className='text-xl'>{date.toDateString().split(' ').slice(0, 4).join(' ')}</p>}
-      {isRDVadded&&<GrStatusGood size={25} className=' text-green-500'/>}
       <button className=' bg-sky-900 text-white p-1 rounded-md '
       onClick={()=>{onAddRDV()}}
       >+ RDV</button>
@@ -145,7 +161,7 @@ const onAddRDV =async()=>{
             </div>
 
         </div>
-      
+        <ToastContainer />
     </div>
   )
 }

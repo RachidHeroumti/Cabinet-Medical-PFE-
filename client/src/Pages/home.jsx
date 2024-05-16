@@ -1,11 +1,10 @@
-import Doctors from "../Compoanent/Departments"
-import NavBar from "../Compoanent/NavBar"
+
 import Services from "../Compoanent/Services"
 import Footer from "../Compoanent/Footer"
-import LsDoctors from "../Compoanent/LsDoctors"
 import Hero from "../Compoanent/Hero"
-import Departement from "../Compoanent/Departments"
+
 import AboutUs from "../Compoanent/AboutUs"
+import BodyHome from "../Compoanent/BodyHome"
 
 const Home =()=>{
 
@@ -13,6 +12,7 @@ const Home =()=>{
         <div className=" max-w-[1640px] h-[500px] pt-12 bg-sky-200">
             <Hero/>
             <Services/>
+            <BodyHome/>
            <AboutUs/>
             <Footer/>  
         </div>

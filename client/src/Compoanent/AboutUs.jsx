@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function About() {
   return (
-    <div className=' p-4 flex bg-sky-200 my-3 ' id='about'>
+    <div className=' p-4 pt-40 flex bg-sky-50 my-3 ' id='about'>
         <div className=' grid sm:grid-cols-2 gap-5'>
             <div className='text-xl flex flex-col space-y-4'>
                 <h1 className=' text-2xl font-bold text-center'>Doctori</h1>

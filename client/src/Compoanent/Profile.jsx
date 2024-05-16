@@ -7,8 +7,7 @@ import { addNoteRoute, addRDVRoute, getPatTestsRoute, getPatientRDVRoute, getUse
 import { useNavigate } from "react-router-dom";
 import { MdMode,MdDelete } from "react-icons/md";
 import PatientDessier from "./PatientDessier";
-
-
+import DachbordAdmin from "./DachbordAdmin";
 
 
 
@@ -27,6 +26,7 @@ const Profile=()=>{
     const[isPatDessier,setIsPatDessier]=useState(false)
     const[patAddNoteCIN,setPatAddNoteCin]=useState("");
     const[noteText,setNoteText]=useState("");
+    const[dt,setDt]=useState(new Date());
 
   useEffect(()=>{
     if(user){
@@ -49,6 +49,8 @@ const Profile=()=>{
 
             if(resRDVs.data.MyRdvs){
                 setMyRDVs(resRDVs.data.MyRdvs);
+               // const dtRDV=new Date(resRDVs.data.MyRdvs.dateRdv)
+                //setDt(new Date(dtRDV.getDay(),dtRDV.getMonth(),dtRDV.getFullYear()))
             }
             if(resRDVs.data.tests){
                 setMyTests(resTests.data.tests);     
@@ -57,9 +59,7 @@ const Profile=()=>{
         }
         else if(!isAdmin){
           const userId=user._id;
-           console.log(userId);
             const resRDVs = await axios.get(`${getdocRDVRoute}/${userId}`);
-             console.log(resRDVs);
             if(resRDVs.data.MyRdvs){
               setMyRDVs(resRDVs.data.MyRdvs);
           }
@@ -91,7 +91,6 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
           const Patient=resUser.data._id;
           const resAddtest=await axios.post(addNoteRoute,
             {Patient,Medecin:user._id,noteText})
-             console.log(resAddtest.data);
             if(resAddtest.data.noteAdded._id){
               setNoteText("");
               setPatAddNoteCin("");
@@ -116,68 +115,27 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
 
 
     return(
-        <div className=" mt-12">
-            {isAdmin&&
-             <div className="">
-                <div className="p-4 bg-sky-300 flex justify-center items-center">
-                    <img src="https://images.pexels.com/photos/834863/pexels-photo-834863.jpeg?auto=compress&cs=tinysrgb&w=600" alt="picAdmin" 
-                    className="rounded h-[100px] w-[100px]"/>
-                    <div className="p-2">
-                        <h2 className="text-xl font-bold text-gray-950">Administaration</h2>
-                        <h1 className="">{user.fullName}</h1>
-                    </div>
-               </div>
+        <div className=" mt-16">
+        {isAdmin &&  <DachbordAdmin/>
+        
 
-               <div className=" flex justify-between  space-x-10 p-4">
-               <div className=" p-2 space-y-2 space-x-2 rounded bg-gray-200"> 
-                    <h1 className=" text-2xl font-bold">Add Departments </h1>
-                    <input type="text" placeholder="Department Name"
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-                      <div className=" space-x-2">
-                    
+}
 
-                      <input type="text" placeholder="specialiste 1"
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-                       <input type="text" placeholder="specialiste 2"
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-                       <input type="text" placeholder="specialiste 3"
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-                       <input type="text" placeholder="specialiste 4"
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-
-
-                        </div>
-                      <button className=" m-2 bg-sky-400 rounded-xl text-xl p-1 w-full hover:bg-sky-600">Add</button>
-                </div> 
-
-                <div className=" p-2 space-y-2 space-x-2 rounded bg-gray-200"> 
-                    <h1 className=" text-2xl font-bold">Add Test Information</h1>
-                    <input type="text" placeholder="Test .."
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
-                    <input type="text" placeholder="userId .."
-                      className=" outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/><br></br>
-                      <textarea className="p-2 w-full outline-none bg-bg-gray-100 hover:bg-gray-100" placeholder="test result ..."
-                      ></textarea>
-                      <button className=" m-2 bg-sky-400 rounded-xl text-xl p-1 w-full hover:bg-sky-600">Add</button>
-                </div>   
-
-               </div>
-            </div>
-            }
 
 
 
 {!isAdmin  &&user&&
-<div>
+<div className="p-3">
 <div className="flex p-2 ">
                 <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=600" alt="pic-profile"
-                 className=" rounded w-[100px] h-[120px] m-2"/>
+                 className=" rounded-full w-[150px] h-[150px] m-2"/>
 
                  <div className="px-2 font-semibold text-gray-950 space-y-1 w-full">
                     {isMedecin?<div className="flex justify-between w-full">
                       <div className=" text-xl">
                       <h1 className=" text-sky-800 font-bold"><span className="text-xl px-1">Dr.</span>{user.fullName}</h1>
-                      <h2 className=" font-normal text-gray-700 ">RSA :452876</h2>
+                      <h2 className=" font-normal text-gray-800 "><span className=" font-medium">Cabinet Name</span> : elkhadi cab</h2>
+                      <h1 className="font-normal text-gray-800"><span className=" font-medium">Medical License Number </span>: 245685</h1>
                       </div>
                       <div className=" flex flex-col justify-end"> 
                         <div className=" flex bg-gray-300 hover:bg-gray-200 items-center rounded m-2 p-1 ">
@@ -201,7 +159,7 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                       </div>
                     </div>
 
-                    :<div className=" text-xl">
+                    :<div className=" text-xl  ">
                        <h1 className=" text-sky-800 font-bold">{user.fullName}</h1>
                    <a href="" className=" text-sky-300 hover:text-sky-400">{user.email}</a>
                     <div className=" flex space-x-2">
@@ -215,24 +173,27 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
 
             </div>
 
-            <div className="flex  space-x-2  flex-col">
+      <div className={`flex  space-x-2  w-full ${isMedecin? "flex-col":"flex-row justify-between"}`}>
+         <div className={`py-4   ${isMedecin ?"flex   space-x-2":"flex   w-full " }`}>
 
-         <div className={`py-4 ${isMedecin ?"flex   space-x-2":"space-y-2" }`}>
-
-
-          <div className=" space-y-2 w-full">
-          <h1 className=" text-sky-900 font-bold text-center bg-sky-100  p-2 rounded">Mes Rendez-vous</h1>
+          <div className=" space-y-2 flex flex-col w-full bg-gray-200 ">
+          <h1 className=" text-sky-900 font-bold text-center border bg-gray-300  p-2 rounded">Mes Rendez-vous</h1>
                 {MyRDVs.length>=1?<div className=" grid grid-cols-1 gap-5 p-4">
                   {
                     MyRDVs.map((item,i)=>{
                       return(
-                        <div key={i} className=" flex justify-between p-4  bg-gray-200">
+                        <div key={i} className=" flex justify-between p-4  bg-gray-100">
                         <div className="">
-                        <h1 className=" text-xl font-bold text-gray-950">{isMedecin?item.Patient.fullName:item.Medecin.fullName}</h1>
+                        <h1 className=" text-xl font-bold text-gray-950">{isMedecin?item.Patient.fullName:"Dr ."+item.Medecin.fullName}</h1>
                         <h1>Location : {item.Medecin.address}</h1>
                         </div>
                         <div className=" font-semibold text-gray-950">
-                         <h1>Date : {item.dateRdv} </h1> 
+                   {     // const dtRDV=new Date(resRDVs.data.MyRdvs.dateRdv)
+                //setDt(new Date(dtRDV.getDay(),dtRDV.getMonth(),dtRDV.getFullYear()))
+              }
+              <h1>Date: {new Date(item.dateRdv).getDate()}/{new Date(item.dateRdv).getMonth() + 2}/{new Date(item.dateRdv).getFullYear()}</h1>
+
+
                          <h1>Time : {item.Num+7}:00</h1>
                          <div className=" space-x-4 flex justify-end">
                       { !isMedecin&&  <MdDelete size={24} className=" text-sky-900 hover:text-sky-700" 
@@ -246,12 +207,13 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                   }
 
                 </div>:
-        <h1 className=" text-center">No appoinment yet !</h1>
+              <h1 className=" text-center ">No appoinment yet !</h1>
                 }
           </div>
                
-     {isMedecin&&<div className=" w-full flex flex-col items-center bg-gray-50 p-2">
-                    
+
+       {isMedecin&&
+    <div className=" flex w-full flex-col items-center bg-gray-200 p-2">
                   <div className=" bg-gray-300 p-4 w-full rounded space-y-2 ">
                     <input type="text" placeholder="Enter CIN of Patient" className=" outline-none p-1 rounded"
                      value={patAddNoteCIN}
@@ -267,17 +229,19 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
 
                  </div> 
                  }
+
+                 {/***   */}
             </div>
     
-
-          { !isMedecin&&  <div className="py-4 ">
-                <h1 className=" text-sky-900 font-bold text-center bg-sky-100  p-2 rounded">Les Testes</h1>
+    
+          { !isMedecin&&  <div className="my-4 w-full bg-gray-200 border-spacing-1">
+                <h1 className=" text-sky-900 font-bold text-center bg-gray-300  p-2 rounded">Les Testes</h1>
 
                 {Mytests.length>=1?<div className=" grid grid-cols-1">
                   {
                     Mytests.map((item,i)=>{
                       return(
-                        <div key={i} className=" space-y-2">
+                        <div key={i} className=" space-y-2 bg-gray-300 rounded">
                           <h1 className="text-xl">Labo Name </h1>
                           <p>test about ...</p>
                           <p>test result ...</p>
@@ -292,6 +256,8 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                 }
               
             </div>}
+
+
 
             </div> 
         </div>

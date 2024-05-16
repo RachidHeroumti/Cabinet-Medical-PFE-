@@ -21,7 +21,6 @@ const Services =()=>{
         }
     },[showAll]);
 
-
     
     const iconMap = [
         FaUserDoctor,
@@ -32,18 +31,16 @@ const Services =()=>{
       ]
 
 
-
-
     return(
-       <div className=" max-w-[1640px] p-14 bg-sky-50 " id="services">
+       <div className=" max-w-[1640px] pt-16 pb-3 bg-sky-50 " id="services">
          <h1 className=" text-2xl font-bold text-center p-4">Our Services</h1>
-        <div className=" flex p-5 justify-center  space-x-4">
+        <div className=" flex p-3 justify-center  space-x-4">
 
        {   services&& services.map((item,i)=>{
          const IconComponent = iconMap[i];
         return (
      <div key={i} className=" rounded-sm w-[200px] flex flex-col items-center p-5 bg-sky-50 hover:bg-sky-100 space-y-2 ">
-            <IconComponent size={50} className=" text-green-700 " />
+            <IconComponent size={50} className=" text-sky-600 " />
             <h1 className="  text-center font-bold ">{item}</h1>
             <p className=" text-center">
                 </p>

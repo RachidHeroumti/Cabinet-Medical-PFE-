@@ -1,3 +1,4 @@
+import { request } from "express";
 import mongoose from "mongoose";
 
 const today = new Date();
@@ -8,7 +9,8 @@ const RdvSchema = new mongoose.Schema({
     required: true
   },
   Medecin: {
-    type: mongoose.Schema.Types.ObjectId, ref: "Users"
+    type: mongoose.Schema.Types.ObjectId, ref: "Users",
+    required:true
   },
   dateRdv: {
     type: Date,

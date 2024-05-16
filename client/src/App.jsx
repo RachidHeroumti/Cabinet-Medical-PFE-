@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Router, Routes } from "react-router-dom"
 import Home from "./Pages/home"
 import Login from './Pages/login'
 import Register from './Pages/Register'
-import LsDoctors from './Compoanent/LsDoctors'
-import RDV from './Compoanent/RDV'
 import Profile from './Compoanent/Profile'
 import DoctorDashbord from './Compoanent/DoctorDashbord'
 import NavBar from './Compoanent/NavBar'

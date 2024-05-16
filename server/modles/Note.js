@@ -8,4 +8,5 @@ const NoteSchema=mongoose.Schema({
 
 })
 
+
 export default mongoose.model("Note",NoteSchema);

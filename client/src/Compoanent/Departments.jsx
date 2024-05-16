@@ -1,63 +1,35 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { getDepartmetRoute } from "../Routes/routes";
+import React, { useState } from 'react'
 
-const Department=()=>{
-    const [departmets,setDepatrmets]=useState([]);
+function Departments() {
+const[isToaddDep,setIsToaddDep]=useState(true)
 
-    useEffect(()=>{
-            const getDeps=async()=>{
-                const res =await axios.get(getDepartmetRoute);
-                if(res.data.deps){
-                    setDepatrmets(res.data.deps);
-                }
-            }
-           getDeps(); 
-    },[])
+  return (
+    <div id='departments' className='flex justify-end  bg-gray-200 p-5  space-x-3'>
+       <div className=' grid grid-cols-1 gap-2 bg-white shadow-sm rounded-xl h-fit'>
+       <div className=' flex  text-gray-800 bg-sky-100 border p-2 rounded-md  font-semibold space-x-5'>
+            <h1>Department Name</h1> 
+            <h1>Medcin Number</h1> 
+         </div>
+         <div className=' flex  border p-2 rounded-md   space-x-5'>
+            <h1 className=' w-full'>Department topic</h1> 
+            <h1 className=' w-full'>14</h1>
+         </div>
+      
+       </div>
 
-    return(
-        <div className="">
-            <h1 id="departments" 
-             className=" text-center p-5 text-2xl font-bold bg-sky-50 rounded">Departments</h1>
-            <div className="grid grid-cols-1 gap-10">
 
-{
-    departmets.map((item,i)=>{
-        return (
-            <div key={i} className={` flex  text-gray-950 ${i%2==0?"":"justify-end"} `}>
-            <div className="p-4 flex space-x-2 max-w-1/2">
-                <img className=" w-[300px] h-[350px] rounded "
-                src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=600" alt="doctor"/>
-                <div className=" space-x-2 space-y-2 px-3  max-w-[550px]"> 
-                    <h1 className="text-2xl font-semibold ">{item.name}</h1>
-                    <p className=" font-semibold">adipisicing elit. Recusandae non doloribus laboriosam a? 
-                    Deleniti quisquam tempore accusantium error dignissimos veritatis blanditiis ipsam temporibus,
-                     fugit, tenetur recusandae perferendis laborum. Repellat, dolore.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                         Officia in facere vel dolor doloremque reiciendis id,
-                         ut magnam et libero expedita maxime voluptatibus excepturi atque ex velit provident pariatur unde!
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Quis totam, aspernatur velit voluptate id ut nemo vel? Culpa aut architecto ullam fugiat quod!
-                         Voluptate sed quae necessitatibus commodi itaque facere.
-                    </p>
-                    
+     { isToaddDep&& <div className="p-2 space-y-2 space-x-2 rounded bg-white shadow-sm"> 
+                <h1 className="text-2xl font-bold">Add Departments</h1>
+                <input type="text" placeholder="Department Name" className="outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
+                <div className=" grid grid-cols-2  gap-3 ">
+                    {[1, 2, 3, 4].map((index) => (
+                        <input key={index} type="text" placeholder={`specialiste ${index}`} className="outline-none p-1 px-2 rounded-sm bg-bg-gray-300 hover:bg-gray-100"/>
+                    ))}
                 </div>
-            </div>
-        </div>
-
-        )
-    })
-}
-               
-
-            </div>
-
-        </div>
-    )
+                <button className="m-2 bg-sky-400 rounded-xl text-xl p-1 w-full hover:bg-sky-600">Add</button>
+            </div> }
+    </div>
+  )
 }
 
-export default Department ;
+export default Departments

@@ -122,6 +122,22 @@ export const getDoctors = async (req, res) => {
 
 }
 
+
+
+export const getPatients = async (req, res) => {
+ 
+  try {
+    const Patients = await User.find({isMedecin:false,isAdmin:false});
+    if (!Patients) {
+    return  res.status(401).json({ message: "no Patient found !" });
+    }
+    res.status(200).json({Patients});
+  } catch (err) { console.log(err) };
+
+}
+
+
+
 export const updateUser=async (req,res)=>{
   const id= re.params.id;
   const{profile}=req.body;
