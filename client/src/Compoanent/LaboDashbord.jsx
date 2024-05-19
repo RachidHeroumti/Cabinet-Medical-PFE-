@@ -24,7 +24,7 @@ export default function LaboDashbord() {
 
     try{
         if(testResult&&cinPatiet&&testTitle){
-            const res= await axios.post(,{});
+            //const res= await axios.post(,{});
 
         }
 
