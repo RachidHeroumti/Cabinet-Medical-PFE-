@@ -3,11 +3,12 @@ import { Cabstate } from "../Context/cabinatProvider";
 import { IoMdSearch } from "react-icons/io";
 import { MdAddCall, MdSearchOff } from "react-icons/md";
 import axios from "axios";
-import { addNoteRoute, addRDVRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
+import { addNoteRoute, addRDVRoute, deletRDVRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
 import { useNavigate } from "react-router-dom";
 import { MdMode,MdDelete } from "react-icons/md";
 import PatientDessier from "./PatientDessier";
 import DachbordAdmin from "./DachbordAdmin";
+import LaboDashbord from "./LaboDashbord";
 
 
 
@@ -27,15 +28,17 @@ const Profile=()=>{
     const[patAddNoteCIN,setPatAddNoteCin]=useState("");
     const[noteText,setNoteText]=useState("");
     const[dt,setDt]=useState(new Date());
+    const[isLabo,setIslabo]=useState(false)
 
   useEffect(()=>{
     if(user){
         if(user.isAdmin===true)setIsAdmin(true);
-        else if(user.isMedecin===true) setIsMedecin(true);  
+        else if(user.isMedecin===true) setIsMedecin(true); 
+        else if(user.isLabo===true)  setIslabo(true)
+
+          console.log(user)
     }else{navigate("/");}
   },[user])
-
-
 
   useEffect(()=>{
     const getRDVs_Tests=async()=>{
@@ -104,27 +107,28 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
 
   }
 
- const DeleteRdv =(item)=>{
+ const DeleteRdv =async(item)=>{
   const rdvs=MyRDVs;
-   setMyRDVs(
-    rdvs.filter((it)=>{
-      return it._id!== item._id;
-    })
-   )
+  try{
+   const res = await axios.get(`${deletRDVRoute}/${item._id}`);
+       console.log(res);
+    setMyRDVs(
+      rdvs.filter((it)=>{
+        return it._id!== item._id;
+      })
+     )
+  }catch(err){console.log(err);}
+   
  }
 
 
     return(
         <div className=" mt-16">
-        {isAdmin &&  <DachbordAdmin/>
-        
-
-}
+        {isAdmin &&  <DachbordAdmin/>}
+        {isLabo&&<LaboDashbord/>}
 
 
-
-
-{!isAdmin  &&user&&
+{!isAdmin&&!isLabo  &&user&&
 <div className="p-3">
 <div className="flex p-2 ">
                 <img src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=600" alt="pic-profile"

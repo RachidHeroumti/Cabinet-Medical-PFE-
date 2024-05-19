@@ -108,6 +108,7 @@ useEffect(() => {
 
                         </select>
                         <select className=" outline-non p-1 bg-transparent  ">
+                            <option>Select City</option>
                             <option>Agadir</option>
                             <option>Rabat</option>
                             <option>Casabalnca</option>
@@ -135,7 +136,7 @@ useEffect(() => {
           className=" rounded-full w-[50px] h-[50px] "/>
           <div>
           <h1 className=" text-xl text-gray-900">Dr. {item.fullName}</h1>
-           <h1>Agadir 154 rue elhay</h1>
+           <h1>{item.address}</h1>
          </div>
     </div>)
 

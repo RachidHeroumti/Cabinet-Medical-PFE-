@@ -36,6 +36,7 @@ function Register() {
    const[serSelect,setSerSelect]=useState("");
    const[depIdSelectd,setDepIdSelected]=useState("");
    const[MLN,setMLN]=useState("");
+   const[isLabo,setisLabo]=useState(false);
 
   const {user,setUser}=Cabstate();
   const[err,setErr]=useState('');
@@ -51,6 +52,9 @@ function Register() {
     }
     getDeps();
 },[]);
+
+
+
 
 
 useEffect(()=>{
@@ -92,15 +96,17 @@ else{
   try{
     const [day, month, year] = birthday.split("/");
     const dateN=new Date(year,month-1,day);
-
+  
     const res = await axios.post(registerRoute,{
-      fullName,email,password,nationalId,phon,dateNaissance:dateN
+      fullName,email,password,nationalId,phon,dateNaissance:dateN,isLabo
     });
 
     console.log(res.data);
    if(res.data._id){
     Cookies.set("ut",res.data.token, { expires: 10 }) ;
     Cookies.set('user', JSON.stringify(res.data));
+    setUser(res.data);
+
     navigate("/profile");
    }else{
     setErr(res.data.message);
@@ -141,6 +147,7 @@ const onAddDoctor =async()=>{
       try{
         const [day, month, year] = birthday.split("/");
         const dateN=new Date(year,month-1,day)
+      
         const res=await axios.post(registerRoute, {fullName,email,password,address,nationalId,isMedecin:true,phon,
             dateNaissance:dateN,Service:serSelect ,Departement:depIdSelectd,city,cabenitName:cabinetName,description});
 
@@ -167,10 +174,10 @@ const onAddDoctor =async()=>{
       <div className='w-[800px] p-5 bg-gray-100 shadow-2xl rounded-md mt-10'>
 
         <div className=' flex w-full p-2 space-x-2'>
-        <button className={`w-full p-1 ${!isDoctor ? "bg-sky-700 text-white" : " border border-sky-600"}`}
+        <button className={`w-full p-1 rounded-md ${!isDoctor ? "bg-sky-500 text-white" : " border border-sky-600"}`}
         onClick={()=>{setIsDoctot(false)}}
         >Patient</button>
-        <button className={`w-full p-1 ${isDoctor ? "bg-sky-700 text-white" : "border border-sky-600"}`}
+        <button className={`w-full p-1 rounded-md ${isDoctor ? "bg-sky-500 text-white" : "border border-sky-600"}`}
          onClick={()=>{setIsDoctot(true)}}
         >Medecin</button>
         </div>
@@ -237,6 +244,16 @@ const onAddDoctor =async()=>{
       placeholder=' +212 *' />
 </div>
 
+<div className='bg-gray-100 flex border items-center  p-1 space-x-3 text-gray-900'>
+<h1 className=' text-center '>Select is Labo</h1>
+<input
+  onChange={(e) => { setisLabo(e.target.checked) }}
+  checked={isLabo}
+  className='outline-none rounded-md bg-transparent font-medium size-5'
+  type='checkbox'
+/>
+
+</div>
 
 {err&&<span className=' text-red-600 font-semibold'>{err}</span>}
           <button onClick={() => { OnRegister() }}

@@ -4,7 +4,7 @@ import generateToken from "../config/generateToken.js"
 
 export const Register = async (req, res) => {
 const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
-  ,Departement,Service,address,city ,description,cabenitName } = req.body;
+  ,Departement,Service,address,city ,description,cabenitName ,isLabo,mln} = req.body;
   let user;
   try {
     if (!fullName || !email || !password||!nationalId||!dateNaissance||!phon)
@@ -14,7 +14,9 @@ const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
       if (!isAdmin) {
         if (!isMedecin) {
           //Patient
-          user = User({ fullName, email, password,nationalId,dateNaissance ,phon });
+           if(isLabo)  user = User({ fullName, email, password,nationalId,dateNaissance ,phon ,isLabo});
+          else user = User({ fullName, email, password,nationalId,dateNaissance ,phon });
+             
           await user.save();
 
           res.status(200).json({
@@ -25,6 +27,7 @@ const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
             "phon":user.phon,
             "isAdmin":user.isAdmin,
             "isMedecin":user.isMedecin,
+            "isLabo":user.isLabo,
             token: generateToken(user._id)
           });
 
@@ -32,7 +35,7 @@ const{fullName, email, password, isMedecin,isAdmin,nationalId,phon,dateNaissance
         } else {
           //Medecin
           user = User({ fullName, email, password,nationalId,dateNaissance ,phon, isMedecin,Departement
-            ,Service,address,city,description,cabenitName });
+            ,Service,address,city,description,cabenitName ,mln:"MA54879"});
           await user.save();
 
           res.status(200).json({
@@ -82,6 +85,7 @@ export const Login = async (req, res) => {
             "phon":user.phon,
             "isAdmin":user.isAdmin,
             "isMedecin":user.isMedecin,
+            "isLabo":user.isLabo,
             token: generateToken(user._id)
       });
     } else res.status(200).json({ message: "Email or Password inccorrect !" });

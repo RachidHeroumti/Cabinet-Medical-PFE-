@@ -5,7 +5,7 @@ export default function BodyHome() {
 
 
   return (
-    <div className=' space-y-4 p-5'>
+    <div className=' space-y-4 p-5 bg-sky-50'>
       <div className=' p-5 flex items-center justify-center space-x-32'>
         <h1 className='text-sky-950 font-bold text-xl'>Doctori C'est ...</h1>
         <div>
@@ -18,11 +18,11 @@ export default function BodyHome() {
         </div>
 
         <div>
-            <h1 className='text-3xl font-bold text-sky-600'>90% </h1>
+            <h1 className='text-3xl font-bold text-sky-600'>97.99% </h1>
             <h1 className='text-center text-gray-700'>d'avis positifs</h1>
         </div>
       </div>
-      <div className='flex p-5  bg-gray-200'>
+      <div className='flex p-5  bg-gray-200 m-5'>
         <img src='https://images.pexels.com/photos/2102415/pexels-photo-2102415.jpeg?auto=compress&cs=tinysrgb&w=600' alt='pic'
         className=' w-[250px] h-[250px] rounded-full  bg-sky-600 '
         />

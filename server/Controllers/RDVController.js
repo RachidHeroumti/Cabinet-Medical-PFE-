@@ -106,7 +106,16 @@ export const getDodRdvs= async(req,res)=>{
   } catch (err) { console.log(err); }
 }
 
+export const DeleteRdv=async(req,res)=>{
+  const{id} =req.params;
 
+  try{
+    const rdvres= await RDV.findByIdAndDelete(id)
+    if(!rdvres) return res.status(201).json({message:"this appointment no found"});
+    return res.status(200).json({rdvres})
+  }catch(err){console.log(err)}
+
+}
 
 /**
  *  try {
