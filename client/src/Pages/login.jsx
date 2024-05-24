@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Cabstate } from '../Context/cabinatProvider';
+import CustomCheckbox from '../Compoanent/CssCompoanent/CustomCheckbox';
 
 
 function Login() {
@@ -11,6 +12,13 @@ function Login() {
   const navigate =useNavigate();
   const[err,setErr]=useState('');
 const{setUser}=Cabstate();
+
+const [rememberMe, setRememberMe] = useState(false);
+
+const handleCheckboxChange = (e) => {
+  setRememberMe(e.target.checked);
+};
+
 
   const OnLogin = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,25 +61,37 @@ const{setUser}=Cabstate();
 
       <div className='w-[400px] p-5 bg-gray-100 shadow-2xl rounded-md m-10 '>
         <h1 className=' text-2xl font-bold text-sky-600 p-2'> Log in</h1>
-        <div>
+        <div className=' space-y-2'> 
           <input onChange={(e) => { setEmail(e.target.value) }}
             value={email}
-            className='bg-gray-200 w-full outline-none px-3 py-1 rounded-md m-1'
+            className=' w-full outline-none px-3 p-2 rounded-md m-1 border'
             type='email' placeholder='Email' />
 
           <input onChange={(e) => { setPassword(e.target.value) }}
             value={password}
-            className='bg-gray-200 w-full outline-none px-3 py-1 rounded-md m-1'
+            className=' w-full outline-none px-3 p-2 rounded-md m-1  border'
             type='password' placeholder='Password' />
+
+<div className="p-2">
+      <CustomCheckbox checked={rememberMe} onChange={handleCheckboxChange} />
+    </div>
+
 {err&&<span className=' text-red-600 font-semibold'>{err}</span>}
           <button onClick={() => { OnLogin() }}
-            className='rounded-full w-full text-center font-bold mt-2 bg-sky-500 hover:bg-sky-600 text-white  p-1'>
+            className='rounded w-full text-center font-bold mt-2 bg-sky-500 hover:bg-sky-600 text-white  p-2'>
             Log in
           </button>
-          <div className='flex items-center justify-end py-2'>
+
+          <div className='flex items-center   text-sm'>
+            <span>
+              Forgot your password ? Reset your password<Link to=""
+                className=' px-2 text-sky-600 font-semibold'>Here</Link>
+            </span>
+          </div>
+          <div className='flex items-center justify-center py-1'>
             <span>
               you don't have account  ? <Link to="/register"
-                className=' px-2 text-sky-600  font-bold'>Register</Link>
+                className=' px-2 text-sky-600 font-semibold'>Register</Link>
             </span>
           </div>
 

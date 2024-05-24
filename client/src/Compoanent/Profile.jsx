@@ -27,7 +27,7 @@ const Profile=()=>{
     const[isPatDessier,setIsPatDessier]=useState(false)
     const[patAddNoteCIN,setPatAddNoteCin]=useState("");
     const[noteText,setNoteText]=useState("");
-    const[dt,setDt]=useState(new Date());
+  
     const[isLabo,setIslabo]=useState(false)
 
   useEffect(()=>{
@@ -36,7 +36,7 @@ const Profile=()=>{
         else if(user.isMedecin===true) setIsMedecin(true); 
         else if(user.isLabo===true)  setIslabo(true)
 
-          console.log(user)
+         
     }else{navigate("/");}
   },[user])
 

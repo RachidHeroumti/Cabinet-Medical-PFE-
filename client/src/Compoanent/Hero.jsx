@@ -104,7 +104,7 @@ useEffect(() => {
                          className=" outline-non p-1 bg-transparent border-e border-gray-800 ">
                             <option>Name</option>
                             <option>Department</option>
-                            <option>Specialite</option>
+                            <option>Speciality</option>
 
                         </select>
                         <select className=" outline-non p-1 bg-transparent  ">

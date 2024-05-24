@@ -18,7 +18,13 @@ export const deletRDVRoute=`${host}/rdv/delete-rdv`
 
 export const getPatTestsRoute=`${host}/test/get-PatTests`;
 
+
+//notes
 export const addNoteRoute=`${host}/note/Add-note`;
+
+//test
+export const addTesteRoute=`${host}/test/Add-test`;
+export const getTesteRoute=`${host}/test//get-testes`;
 
 
 

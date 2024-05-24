@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Departments from './Departments';
 import { getDoctorsRoute, getPatientsRoute } from '../Routes/routes';
 import axios from 'axios';
+import { IoMdSearch } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 
 
@@ -48,11 +49,11 @@ function DachbordAdmin() {
          <h1 className=' text-xl font-bold italic text-sky-50 text-center py-2'>Dachbord Admin </h1>
          <div className=' space-y-1 flex flex-col h-full text-white '>
 
-            <a  className='p-2 shadow hover:bg-sky-400   active:bg-sky-200' onClick={()=>{setIsPatient(false)}}>Doctor's</a>
-            <a  className='p-2  shadow hover:bg-sky-400 ' onClick={()=>{setIsPatient(true)}}>Patients</a>
-            <a href='#departments' className='p-2  shadow hover:bg-sky-400 '>Departmets</a>
-            <a href='' className='p-2  shadow hover:bg-sky-400 '>labolatoire</a>
-            <a href='' className='p-2  shadow hover:bg-sky-400 '>Analytics</a>
+            <a  className='p-2 shadow hover:bg-sky-400 rounded  active:bg-sky-200' onClick={()=>{setIsPatient(false)}}>Les medecines</a>
+            <a  className='p-2  shadow hover:bg-sky-400 rounded' onClick={()=>{setIsPatient(true)}}>Les Patients</a>
+            <a href='#departments' className='p-2  shadow hover:bg-sky-400 rounded'>Departmets</a>
+            <a href='' className='p-2  shadow hover:bg-sky-400 rounded'>Les labolatoires</a>
+            <a href='' className='p-2  shadow hover:bg-sky-400 rounded'>Les analytics</a>
 
          </div>
       </div>
@@ -60,13 +61,23 @@ function DachbordAdmin() {
 
 
     <div className=' w-full bg-white rounded-xl h-[500px] '>
+    <div className=' flex justify-end p-2 bg-sky-700 rounded-t-xl'>
+  
+                    <div className=" flex bg-white hover:bg-gray-200 border  items-center rounded-3xl p-2  ">
+                    <IoMdSearch size={25} className=" text-sky-800  "/>
+                         <input type="text" placeholder="Search for User By CIN " 
+                           className=" rounded outline-none bg-transparent  "
+                           />
+                          </div>
+                    </div>
+
      <div className='grid grid-cols-1 gap-3 grid-rows-5'> 
         <div className=' flex justify-between font-bold text-gray-700 bg-gray-100 p-2 rounded-t-xl ' >
           <h1 className='w-full'>Nom et Prenom</h1>
           <h1 className='w-full'>{!isPatient? "Medical Lisence Number" :"CIN" }</h1>
           <h1 className='w-full'>{!isPatient? "Departement" :"Date Naissance" }</h1>
           <h1 className='w-full'>{!isPatient? "Specialite" :"Email" }</h1>
-          <h1 className='w-full'>Delete</h1>
+          <h1 className='w-full'>Action</h1>
           
         </div>
 
@@ -78,7 +89,10 @@ function DachbordAdmin() {
           <h1 className='w-full'>{isPatient? `${item.nationalId}`:`M25648`}</h1>
           <h1 className='w-full'>{isPatient? `10/12/2014`:`${item.Departement?.name}`}</h1>
           <h1 className='w-full'>{isPatient? `${item.email}`:`${item.Service}`}</h1>
-          <h1 className='w-full'><MdDelete size={25} className=' text-gray-800 hover:text-gray-900'/></h1>   
+          <div className='w-full space-x-2 flex'>
+            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Edit</button>
+            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Delete</button>
+               </div>   
         </div>
  )
    })
@@ -88,10 +102,7 @@ function DachbordAdmin() {
 
     </div> 
       </div>
-      <div id='departments'>
-        <Departments/>
-      </div>
-    
+      
     </div>
   )
 }

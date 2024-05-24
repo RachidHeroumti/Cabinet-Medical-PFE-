@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoMdSearch } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { Cabstate } from '../Context/cabinatProvider';
 import axios from 'axios';
+import { BsHospital } from "react-icons/bs";
+import { addTesteRoute, getTesteRoute, getUserBycinRoute } from '../Routes/routes';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -11,22 +15,90 @@ export default function LaboDashbord() {
 
     const[testSearch,settestSearch]=useState("");
     const[isToaddtest,setIstoAddtest]=useState(false)
-    const[cinPatiet,setCinPatient]=useState("");
+    const[cinPatient,setCinPatient]=useState("");
     const[testTitle,setTestTitle]=useState("");
     const[testResult,setTestresult]=useState("");
-
+    const[alltestes,setAllTest]=useState([]);
+    const[patientToaddTestId,setPatToaddTestId]=useState("");
 
     const{user} =Cabstate();
 
 
+
+    const toastOption = {
+        position: "bottom-right",
+        autoClose: 3000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+      };
+
+
+      useEffect(()=>{
+        const getTestes=async()=>{
+            try{
+                const res = await axios.get(getTesteRoute);
+                if(res.data.testes){
+                    setAllTest(res.data.testes);
+                }
+
+            }catch(err){console.log(err)}
+        }
+        getTestes();
+      },[]);
+
+
+
+ const GetPtientByCin=async(cin)=>{
+        try{
+       const nationalId=cin.toString();
+       const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
+          if(res.data._id){
+           setPatToaddTestId(res.data._id);
+          }
+        }catch(err){ console.log(err)}
+       }
+
+
+     
+ const DeleteTest =async(item)=>{
+    const MyTestes=alltestes;
+    try{
+    // const res = await axios.get(`${deletRDVRoute}/${item._id}`);
+         //console.log(res);
+      setAllTest(
+        MyTestes.filter((it)=>{
+          return it._id!== item._id;
+        })
+       )
+    }catch(err){console.log(err);}
+     
+   }
+
+
  const onAddTest=async()=>{
     
-
+    
     try{
-        if(testResult&&cinPatiet&&testTitle){
-            //const res= await axios.post(,{});
+        console.log(cinPatient,testTitle);
 
-        }
+        if(testResult&&cinPatient&&testTitle){
+            GetPtientByCin(cinPatient);
+            
+            console.log(patientToaddTestId);
+            if(patientToaddTestId){  
+                console.log(patientToaddTestId);
+                const res= await axios.post(addTesteRoute,{Patient:patientToaddTestId,testSubject:testTitle,TestResult:testResult,laboName:"labo rasbi"});
+                console.log(res);
+                if(res.data.testAd){
+                    setIstoAddtest(false);
+                    toast.success("added successfuly",toastOption);
+                }
+            
+            }
+                 
+
+        }else{toast.error("all information required")}
 
     }catch(err){console.log(err)}
 
@@ -39,14 +111,22 @@ export default function LaboDashbord() {
 
   return (
     <div className=' bg-white'>
-        <div className='flex bg-sky-900 h-[200px]'>
+        <div className='flex  bg-sky-900 h-[200px] justify-center items-center p-4'>
+       
+            <BsHospital size={100} className=' text-sm text-white'/>
+            <div className='p-2'>
+            <h1 className=' text-xl text-white px-2'>Le nom de laboratoire </h1>
+            <h1 className=' text-gray-100'>Location : <span>Hay salam agadir</span> </h1>
+            <h2></h2>
+            </div>
+          
 
         </div>
         <div className='bg-white '>
                 <div className='flex justify-between p-4 items-center'>
                     <h1 className=' font-bold text-xl  text-sky-950 '>Testes</h1>
                     <div className=' flex '>
-                    <div className=" flex bg-white hover:bg-gray-200 border items-center rounded-full p-2  ">
+                    <div className=" flex bg-white hover:bg-gray-200 border border-sky-800 items-center rounded-3xl p-2  ">
                          <input type="text" placeholder="Search for Test By patient " 
                            className=" rounded outline-none bg-transparent  "
                            />
@@ -60,30 +140,47 @@ export default function LaboDashbord() {
 
                 </div>
 
-                <div className=' grid grid-cols-5 bg-gray-100 text-sky-700 font-bold p-2 border'>
+                <div className=' grid grid-cols-6 bg-gray-100 text-sky-700 font-bold p-2 border'>
 
                     <h1>Title</h1>
                     <h1>Patiten</h1>
+                    <h1>CIN</h1>
                     <h1>Date</h1>
                     <h1>Status</h1>
                     <h1>Action</h1>
 
                 </div>
 
-                <div className=' grid grid-cols-5  text-gray-950 font-meduim p-2 border'>
 
-                 <h1>test medical about </h1>
-                 <div>
-                    <h2>Ahmed hassan</h2>
-                    <h2>j54756</h2>
-                 </div>
-                 <h1>12/05/2024</h1>
-                 <h1 className='text-green-700'>Complite</h1>
-                 <div className='flex space-x-1'>
-                 <MdDelete size={25} className=' text-sky-950 hover:text-sky-900' />
-                 <FaEdit  size={25} className=' text-sky-950 hover:text-sky-900'/>
-                 </div>
-                 </div>
+
+                {alltestes&&alltestes.map((item,i)=>{
+                    return(
+                        <div key={i} className=' grid grid-cols-6   font-meduim p-2 px-4 text-black border'>
+                        <h1>{item.testSubject}</h1>
+                        
+                           <h2>{item.Patient.fullName}</h2> 
+                           <h2>{item.Patient.nationalId}</h2>
+                        
+                        <h1>{new Date(item.createdAt).getDate()}/{new Date(item.createdAt).getMonth() + 1}/{new Date(item.createdAt).getFullYear()}</h1>
+                        <h1 className='text-green-700'>Normale</h1>
+                        <div className=' space-x-2 flex'>
+            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Edit</button>
+            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Delete</button>
+               </div> 
+                        </div>
+                    )
+                })
+                   
+                 }
+
+
+
+
+
+
+
+
+
 
             </div>
             {isToaddtest&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
@@ -96,13 +193,22 @@ export default function LaboDashbord() {
                         </div>
                       
                         <div className=' space-y-2 w-full'>
-                        <input type='text' placeholder='CIN de Patient ' 
+                        <input type='text' placeholder='CIN de Patient '
+                        value={cinPatient} 
+                        onChange={(e)=>{setCinPatient(e.target.value)}}
                             className=' outline-none p-1 rounded border bg-transparent '/><br></br>
+
                             <input type='text' placeholder='test title ' 
-                            className=' outline-none p-1 rounded border bg-transparent '/><br></br>
+                            className=' outline-none p-1 rounded border bg-transparent '
+                            value={testTitle} 
+                            onChange={(e)=>{setTestTitle(e.target.value)}} 
+                            /><br></br>
                         
-                              <textarea type='text' placeholder='test resulte ' 
-                            className=' outline-none w-full p-1 rounded border bg-transparent '/>
+                            <textarea type='text' placeholder='test resulte ' 
+                            className=' outline-none w-full p-1 rounded border bg-transparent '
+                            value={testResult} 
+                            onChange={(e)=>{setTestresult(e.target.value)}}
+                            />
                            
                         </div>
                         <button className=' bg-sky-600 text-white p-1 font-semiblod w-full rounded'
@@ -112,6 +218,8 @@ export default function LaboDashbord() {
 
                 </div>
                  </div>}
+
+                 <ToastContainer />
        </div>
   )
 }

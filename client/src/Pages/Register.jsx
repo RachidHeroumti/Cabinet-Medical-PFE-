@@ -245,7 +245,7 @@ const onAddDoctor =async()=>{
 </div>
 
 <div className='bg-gray-100 flex border items-center  p-1 space-x-3 text-gray-900'>
-<h1 className=' text-center '>Select is Labo</h1>
+<h1 className=' text-center '>Pour laboratoire </h1>
 <input
   onChange={(e) => { setisLabo(e.target.checked) }}
   checked={isLabo}
