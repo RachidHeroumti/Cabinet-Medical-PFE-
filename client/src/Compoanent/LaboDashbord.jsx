@@ -186,7 +186,7 @@ export default function LaboDashbord() {
             {isToaddtest&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
             {isToaddtest&&<div className=" z-50 fixed top-0  end-0 start-0 ">
                 <div className=' flex justify-center items-center h-screen '>
-                    <div className=' bg-white border rounded p-5  w-[300px] space-y-2'>
+                    <div className=' bg-white border rounded p-5  w-[500px] space-y-2'>
                         <div className=' flex justify-between'>
                         <h1 className='text-xl p-2 font-medium text-sky-950'>Test</h1>
                         <h1 className='text-xl p-2 font-medium text-red-600 cursor-pointer' onClick={()=>{setIstoAddtest(false)}}>X</h1>

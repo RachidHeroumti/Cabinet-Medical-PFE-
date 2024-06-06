@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { getDoctorsRoute } from "../Routes/routes";
 import { Cabstate } from "../Context/cabinatProvider";
 import axios from "axios";
-
+import Chat from "../componentChat/Chat"
+import Messages from "../componentChat/Messages";
 
 
 const Hero =()=>{
@@ -75,8 +76,14 @@ useEffect(() => {
     return ;
  }
 
+const onSetMessage=()=>{
+console.log(isMsg);
+ setMsg(true);
+ console.log(isMsg);
+}
+
     return(
-        <div>
+        <div >
 
 <div id="home" className=" flex flex-col justify-center overflow-visible pt-16 bg-sky-400 h-[300px]">
   <div className=" flex   flex-col w-full p-4 justify-center items-center space-y-2 ">
@@ -150,9 +157,15 @@ useEffect(() => {
 
 
 
-{
-    //<FaCommentMedical size={50} onClick={()=>{setMsg(true)}} className=" fixed bottom-10 end-10 text-sky-800"/>
-    }
+
+   { isMsg &&<div className=" z-50 w-full fixed top-0 end-0 h-screen " onClick={()=>{setMsg(false)}}></div>}
+   {isMsg && <div className="z-50 fixed top-0  end-0 "> 
+    <Messages />
+   </div>}
+
+
+    <FaCommentMedical size={50} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-800"/>
+    
 </div>
     )
 }

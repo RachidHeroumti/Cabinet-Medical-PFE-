@@ -15,9 +15,9 @@ try{
 }
  
 export const getTestofPatient=async(req,res)=>{
-    const{id}=req.body;
+    const { userId } = req.params;
     try{
-        const tests=await Test.find({Patient:id});
+        const tests=await Test.find({Patient:userId});
 
         if(!tests)
             return res.status(200).json({message :"this Paient Has no test yet"})

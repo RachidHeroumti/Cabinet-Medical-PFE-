@@ -3,12 +3,15 @@ import { Cabstate } from "../Context/cabinatProvider";
 import { IoMdSearch } from "react-icons/io";
 import { MdAddCall, MdSearchOff } from "react-icons/md";
 import axios from "axios";
-import { addNoteRoute, addRDVRoute, deletRDVRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
+import { addNoteRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
 import { useNavigate } from "react-router-dom";
 import { MdMode,MdDelete } from "react-icons/md";
 import PatientDessier from "./PatientDessier";
 import DachbordAdmin from "./DachbordAdmin";
 import LaboDashbord from "./LaboDashbord";
+import { FaEdit } from "react-icons/fa";
+import Editpage from "./Editpage";
+import TestsResult from "./TestsResult";
 
 
 
@@ -27,6 +30,8 @@ const Profile=()=>{
     const[isPatDessier,setIsPatDessier]=useState(false)
     const[patAddNoteCIN,setPatAddNoteCin]=useState("");
     const[noteText,setNoteText]=useState("");
+    const[isEdit,setIsEdit]=useState(false);
+    const[isResult,setIResult]=useState(false);
   
     const[isLabo,setIslabo]=useState(false)
 
@@ -48,14 +53,12 @@ const Profile=()=>{
             const userId=user._id;
             
             const resRDVs = await axios.get(`${getPatientRDVRoute}/${userId}`);
-            const resTests = await axios.get(getPatTestsRoute,{userId});
-
+            const resTests = await axios.get(`${getPatTestsRoute}/${userId}`);
+            
             if(resRDVs.data.MyRdvs){
                 setMyRDVs(resRDVs.data.MyRdvs);
-               // const dtRDV=new Date(resRDVs.data.MyRdvs.dateRdv)
-                //setDt(new Date(dtRDV.getDay(),dtRDV.getMonth(),dtRDV.getFullYear()))
             }
-            if(resRDVs.data.tests){
+            if(resTests.data.tests){
                 setMyTests(resTests.data.tests);     
             }
             
@@ -121,6 +124,11 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
    
  }
 
+const OnEditInfo=()=>{
+setIsEdit(true);
+}
+
+
 
     return(
         <div className=" mt-16">
@@ -142,6 +150,7 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                       <h1 className="font-normal text-gray-800"><span className=" font-medium">Medical License Number </span>: 245685</h1>
                       </div>
                       <div className=" flex flex-col justify-end"> 
+                       <div className="flex justify-end w-full "><FaEdit size={25} onClick={()=>{OnEditInfo()}} className=" text-gray-700"/></div>
                         <div className=" flex bg-gray-300 hover:bg-gray-200 items-center rounded m-2 p-1 ">
                           <IoMdSearch size={25} className=" text-gray-800  "/>
                          <input type="text" placeholder="Search for Patient By CIN " 
@@ -164,8 +173,9 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                     </div>
 
                     :<div className=" text-xl  ">
+                      <div className="flex justify-end w-full "><FaEdit size={25} onClick={()=>{OnEditInfo()}} className=" text-gray-700"/></div>
                        <h1 className=" text-sky-800 font-bold">{user.fullName}</h1>
-                   <a href="" className=" text-sky-300 hover:text-sky-400">{user.email}</a>
+                       <a href="" className=" text-sky-300 hover:text-sky-400">{user.email}</a>
                     <div className=" flex space-x-2">
                     <MdAddCall size={25} className=" text-sky-700 hover:bg-white hover:text-sky-800"/>
                     <h3 className="" >{user.phon}</h3>
@@ -192,9 +202,6 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
                         <h1>Location : {item.Medecin.address}</h1>
                         </div>
                         <div className=" font-semibold text-gray-950">
-                   {     // const dtRDV=new Date(resRDVs.data.MyRdvs.dateRdv)
-                //setDt(new Date(dtRDV.getDay(),dtRDV.getMonth(),dtRDV.getFullYear()))
-              }
               <h1>Date: {new Date(item.dateRdv).getDate()}/{new Date(item.dateRdv).getMonth() + 2}/{new Date(item.dateRdv).getFullYear()}</h1>
 
 
@@ -240,24 +247,29 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
     
           { !isMedecin&&  <div className="my-4 w-full bg-gray-200 border-spacing-1">
                 <h1 className=" text-sky-900 font-bold text-center bg-gray-300  p-2 rounded">Les Testes</h1>
-
-                {Mytests.length>=1?<div className=" grid grid-cols-1">
+                <div className=" grid grid-cols-1 p-2 gap-5">
                   {
-                    Mytests.map((item,i)=>{
+                   Mytests && Mytests.map((item,i)=>{
                       return(
-                        <div key={i} className=" space-y-2 bg-gray-300 rounded">
-                          <h1 className="text-xl">Labo Name </h1>
-                          <p>test about ...</p>
-                          <p>test result ...</p>
+                        <div key={i} className=" flex justify-between p-4  bg-gray-100">
+                        <div className="">
+                        <h1 className=" text-xl font-bold text-gray-950">{item.testSubject}</h1>
+                        <h1> Laboratoire d'Analyses Médicales </h1>
                         </div>
+                        <div className=" font-semibold text-gray-950">
+                        <h1>{new Date(item.createdAt).getDate()}/{new Date(item.createdAt).getMonth() + 1}/{new Date(item.createdAt).getFullYear()}</h1>
+                        <h1 className=" ">Result de test  <button className="  text-sky-700 " onClick={()=>{setIResult(true)}}>here</button></h1>
+                        </div>
+                    
+                      </div>
                       )
                     })
                   
                   }
 
-                </div>:
-                   <h2 className=" text-center text-gray-600 p-5">No test yet !</h2>
-                }
+                </div>
+               {!Mytests&&    <h2 className=" text-center text-gray-600 p-5">No test yet !</h2>}
+                
               
             </div>}
 
@@ -271,6 +283,18 @@ const res = await axios.get(`${getUserBycinRoute}/${nationalId}`);
      {isPatDessier&&<div className=" z-50 fixed top-0  end-0 start-0 ">
  
       <PatientDessier setIs={setIsPatDessier} patSearched={patSearched}/>
+      </div>}
+
+      {isEdit&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
+     {isEdit&&<div className=" z-50 fixed top-0  end-0 start-0 ">
+ 
+      <Editpage setIsEdit={setIsEdit}/>
+      </div>}
+
+      {isResult&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
+     {isResult&&<div className=" z-50 fixed top-0  end-0 start-0 ">
+ 
+      <TestsResult setIResult={setIResult}/>
       </div>}
 
         </div>

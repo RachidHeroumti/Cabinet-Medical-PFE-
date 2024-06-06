@@ -6,7 +6,7 @@ const route = express.Router();
 
 
 route.post("/Add-test",AddTest );
-route.get("/get-PatTests", getTestofPatient);
+route.get("/get-PatTests/:userId", getTestofPatient);
 route.post("/result-test",addResultTest);
 route.get("/get-testes",getAlltest);
 

@@ -59,8 +59,8 @@ function DachbordAdmin() {
       </div>
 
 
-
-    <div className=' w-full bg-white rounded-xl h-[500px] '>
+     
+    <div className=' w-full bg-white rounded-xl h-[700px] '>
     <div className=' flex justify-end p-2 bg-sky-700 rounded-t-xl'>
   
                     <div className=" flex bg-white hover:bg-gray-200 border  items-center rounded-3xl p-2  ">
