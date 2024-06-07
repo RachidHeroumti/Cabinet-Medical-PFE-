@@ -29,8 +29,8 @@ export default function DoctorDashbord() {
   };
 
   const highlightDates = [
-    new Date(2024, 5, 2),
-    new Date(2024, 4, 5),
+    new Date(2024, 5, 10),
+    new Date(2024, 5, 15),
     // Add more dates here
   ];
 

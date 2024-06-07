@@ -89,9 +89,8 @@ function DachbordAdmin() {
           <h1 className='w-full'>{isPatient? `${item.nationalId}`:`M25648`}</h1>
           <h1 className='w-full'>{isPatient? `10/12/2014`:`${item.Departement?.name}`}</h1>
           <h1 className='w-full'>{isPatient? `${item.email}`:`${item.Service}`}</h1>
-          <div className='w-full space-x-2 flex'>
-            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Edit</button>
-            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Delete</button>
+          <div className='w-full  '>
+            <button className='rounded-xl bg-gray-300 px-2 p-1 hover:bg-slate-400'>Delete</button>
                </div>   
         </div>
  )

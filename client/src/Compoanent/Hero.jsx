@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { getDoctorsRoute } from "../Routes/routes";
 import { Cabstate } from "../Context/cabinatProvider";
 import axios from "axios";
-import Chat from "../componentChat/Chat"
 import Messages from "../componentChat/Messages";
+import { AiOutlineMessage } from "react-icons/ai";
+
 
 
 const Hero =()=>{
@@ -77,9 +78,7 @@ useEffect(() => {
  }
 
 const onSetMessage=()=>{
-console.log(isMsg);
  setMsg(true);
- console.log(isMsg);
 }
 
     return(
@@ -164,7 +163,7 @@ console.log(isMsg);
    </div>}
 
 
-    <FaCommentMedical size={50} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-800"/>
+    <AiOutlineMessage size={45} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-900"/>
     
 </div>
     )

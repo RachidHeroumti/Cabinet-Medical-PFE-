@@ -10,7 +10,7 @@ const messageSchema=mongoose.Schema({
         required:true
       },
     
-      conetnt:{
+      content:{
         type:String ,
         required:true
       }

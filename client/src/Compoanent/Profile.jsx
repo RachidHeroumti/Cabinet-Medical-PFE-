@@ -12,8 +12,9 @@ import LaboDashbord from "./LaboDashbord";
 import { FaEdit } from "react-icons/fa";
 import Editpage from "./Editpage";
 import TestsResult from "./TestsResult";
+import { AiOutlineMessage } from "react-icons/ai";
 
-
+import Chat from "../Chat/Chat"
 
 
 
@@ -32,7 +33,7 @@ const Profile=()=>{
     const[noteText,setNoteText]=useState("");
     const[isEdit,setIsEdit]=useState(false);
     const[isResult,setIResult]=useState(false);
-  
+    const[isMsg,setMsg]=useState(false);
     const[isLabo,setIslabo]=useState(false)
 
   useEffect(()=>{
@@ -128,7 +129,9 @@ const OnEditInfo=()=>{
 setIsEdit(true);
 }
 
-
+const onSetMessage=()=>{
+  setMsg(true);
+ }
 
     return(
         <div className=" mt-16">
@@ -293,9 +296,16 @@ setIsEdit(true);
 
       {isResult&&<div className=" z-50 w-full bg-black/80 fixed top-0 end-0 h-screen "></div>}
      {isResult&&<div className=" z-50 fixed top-0  end-0 start-0 ">
- 
       <TestsResult setIResult={setIResult}/>
       </div>}
+
+
+      { isMsg &&<div className=" z-50 w-full fixed bg-black/80 top-0 end-0 h-screen " onClick={()=>{setMsg(false)}}></div>}
+   {isMsg && <div className="z-50 fixed top-0  end-0 "> 
+    <Chat />
+   </div>}
+
+{ isAdmin&& <AiOutlineMessage size={45} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-900"/>}
 
         </div>
     )

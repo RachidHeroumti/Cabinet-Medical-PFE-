@@ -61,19 +61,6 @@ export default function LaboDashbord() {
 
 
      
- const DeleteTest =async(item)=>{
-    const MyTestes=alltestes;
-    try{
-    // const res = await axios.get(`${deletRDVRoute}/${item._id}`);
-         //console.log(res);
-      setAllTest(
-        MyTestes.filter((it)=>{
-          return it._id!== item._id;
-        })
-       )
-    }catch(err){console.log(err);}
-     
-   }
 
 
  const onAddTest=async()=>{
@@ -109,6 +96,19 @@ export default function LaboDashbord() {
     setIstoAddtest(false);
  }
 
+ const onDeleteTest =(item)=>{
+    const MyTestes=alltestes;
+    try{
+    // const res = await axios.get(`${deletRDVRoute}/${item._id}`);
+         //console.log(res);
+      setAllTest(
+        MyTestes.filter((it)=>{
+          return it._id!== item._id;
+        })
+       )
+    }catch(err){console.log(err);}
+     h
+ }
   return (
     <div className=' bg-white'>
         <div className='flex  bg-sky-900 h-[200px] justify-center items-center p-4'>
@@ -130,7 +130,10 @@ export default function LaboDashbord() {
                          <input type="text" placeholder="Search for Test By patient " 
                            className=" rounded outline-none bg-transparent  "
                            />
-                           <IoMdSearch size={25} className=" text-sky-900  "/>
+                           <IoMdSearch size={25} className=" text-sky-900 " 
+                            value={testSearch}
+                            onChange={(e)=>{settestSearch(e.target.value)}}
+                           />
                           </div>
 
                           <button className=" bg-sky-600 text-white  rounded-3xl  px-2 font-semibold m-1"
@@ -165,7 +168,7 @@ export default function LaboDashbord() {
                         <h1 className='text-green-700'>Normale</h1>
                         <div className=' space-x-2 flex'>
             <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Edit</button>
-            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400'>Delete</button>
+            <button className='rounded-xl bg-gray-300 p-2 hover:bg-slate-400' onClick={()=>{onDeleteTest(item)}}>Delete</button>
                </div> 
                         </div>
                     )

@@ -24,9 +24,10 @@ export const addNoteRoute=`${host}/note/Add-note`;
 
 //test
 export const addTesteRoute=`${host}/test/Add-test`;
-export const getTesteRoute=`${host}/test//get-testes`;
+export const getTesteRoute=`${host}/test/get-testes`;
 
-
-
+//messages
+export const addMessageRoute=`${host}/message/Add-message`;
+export const getMessageRoute=`${host}/message/get-msgswithadmin`;
 
 
