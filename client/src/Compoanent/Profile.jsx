@@ -3,7 +3,7 @@ import { Cabstate } from "../Context/cabinatProvider";
 import { IoMdSearch } from "react-icons/io";
 import { MdAddCall, MdSearchOff } from "react-icons/md";
 import axios from "axios";
-import { addNoteRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute } from "../Routes/routes";
+import { addNoteRoute, getPatTestsRoute, getPatientRDVRoute, getUserBycinRoute, getdocRDVRoute,deletRDVRoute } from "../Routes/routes";
 import { useNavigate } from "react-router-dom";
 import { MdMode,MdDelete } from "react-icons/md";
 import PatientDessier from "./PatientDessier";
@@ -305,7 +305,7 @@ const onSetMessage=()=>{
     <Chat />
    </div>}
 
-{ isAdmin&& <AiOutlineMessage size={45} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-900"/>}
+
 
         </div>
     )

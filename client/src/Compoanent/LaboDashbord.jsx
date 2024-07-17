@@ -140,13 +140,13 @@ export default function LaboDashbord() {
                          onClick={()=>setIstoAddtest(true)} 
                            >+ Add</button>
                     </div>
-
+                    
                 </div>
 
                 <div className=' grid grid-cols-6 bg-gray-100 text-sky-700 font-bold p-2 border'>
 
                     <h1>Title</h1>
-                    <h1>Patiten</h1>
+                    <h1>Patient</h1>
                     <h1>CIN</h1>
                     <h1>Date</h1>
                     <h1>Status</h1>

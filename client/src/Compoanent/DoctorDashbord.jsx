@@ -29,8 +29,9 @@ export default function DoctorDashbord() {
   };
 
   const highlightDates = [
-    new Date(2024, 5, 10),
-    new Date(2024, 5, 15),
+    new Date(2024, 7, 19),
+    new Date(2024, 7, 22),
+    new Date(2024, 7, 26),
     // Add more dates here
   ];
 
@@ -75,7 +76,7 @@ export default function DoctorDashbord() {
         console.log(res);
 
         if (typeof res.data.rdv !== 'undefined' && res.data.rdv._id) {
-          toast.success("Added Successfully!", toastOption);
+          toast.success("Ajouté avec succès!", toastOption);
           setIsRDVadded(true);
         } else if (typeof res.data.message !== 'undefined') {
           console.log(res.data.message);
@@ -93,9 +94,9 @@ export default function DoctorDashbord() {
   };
 
   return (
-    <div className='max-w-[1640px] xl:px-52 p-10 bg-gray-300 h-full space-y-10 pt-16'>
+    <div className='max-w-[1640px] xl:px-52 p-10 space-y-10 bg-gray-300  mt-16 '>
 
-      <div className='space-x-5 space-y-5 md:flex '>
+      <div className='space-x-5  md:flex '>
         <div className='md:w-2/3 bg-sky-50 p-4 rounded'>
           <div className='flex space-x-3'>
             <img src='https://images.pexels.com/photos/4033148/pexels-photo-4033148.jpeg?auto=compress&cs=tinysrgb&w=600' alt=''
@@ -134,7 +135,6 @@ export default function DoctorDashbord() {
         </div>
 
         <div className='md:w-1/3 bg-gray-50 rounded-xl'>
-
           <h1 className='bg-sky-600 font-semibold text-xl rounded-t-xl text-center p-2 text-white'>Rendez-vous</h1>
           <div className='p-2'>
             <h2 className='text-xl'>Calendar</h2>
