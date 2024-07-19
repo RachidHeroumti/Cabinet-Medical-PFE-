@@ -1,6 +1,7 @@
 import express from "express"
 import { Register, Login,getUser,getDoctors,getPatients ,getuserByCIN} from "../Controllers/UserController.js";
 
+import { protect,ProtectForAdmin,ProtectMedcin} from '../tools/AuthMiddkwars.js'
 
 const Route = express.Router();
 

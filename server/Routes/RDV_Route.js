@@ -1,6 +1,6 @@
 import express from "express"
 import { AddRDV, getRDV, getMyRDVs,getDodRdvs,DeleteRdv } from "../Controllers/RDVController.js"
-
+import { protect,ProtectForAdmin,ProtectMedcin} from '../tools/AuthMiddkwars.js'
 const route = express.Router();
 
 

@@ -77,8 +77,8 @@ useEffect(() => {
     return ;
  }
 
-const onSetMessage=()=>{
- setMsg(true);
+const onSetMessage=(is)=>{
+ setMsg(is);
 }
 
     return(
@@ -163,14 +163,14 @@ const onSetMessage=()=>{
 
 
 
-   { isMsg &&<div className=" z-50 w-full fixed top-0 end-0 h-screen " onClick={()=>{setMsg(false)}}></div>}
-   {isMsg && <div className="z-50 fixed top-0  end-0 "> 
+
+   {isMsg && <div className="z-50 fixed top-10 rounded-sm end-0  h-[70%] "> 
     <Messages />
    </div>}
 
 
  { 
- //  <AiOutlineMessage size={45} onClick={()=>{ onSetMessage()}} className=" fixed bottom-10 end-10 text-sky-900"/>
+  <AiOutlineMessage size={45} onClick={()=>{ onSetMessage(!isMsg)}} className=" fixed bottom-10 end-10 text-sky-900"/>
 }
     
 </div>
