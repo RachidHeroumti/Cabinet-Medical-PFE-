@@ -1,4 +1,4 @@
-const host='https://cabinetmedicalserver.onrender.com//pfe/api'
+const host='https://cabinetmedicalserver.onrender.com/pfe/api'
 
 export const registerRoute=`${host}/register` ;
 export const loginRoute=`${host}/login`;
