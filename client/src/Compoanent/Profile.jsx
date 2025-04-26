@@ -36,12 +36,12 @@ const Profile=()=>{
     const[isMsg,setMsg]=useState(false);
     const[isLabo,setIslabo]=useState(false)
 
+
   useEffect(()=>{
-    if(user){
+   if(user){
         if(user.isAdmin===true)setIsAdmin(true);
         else if(user.isMedecin===true) setIsMedecin(true); 
-        else if(user.isLabo===true)  setIslabo(true)
-
+        else if(user.isLabo===true)  setIslabo(true) 
          
     }else{navigate("/");}
   },[user])
