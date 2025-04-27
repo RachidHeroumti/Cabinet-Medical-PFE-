@@ -26,7 +26,6 @@ app.use("/pfe/api/test", TestRout);
 app.use("/pfe/api/note", NoteRoute );
 app.use("/pfe/api/message", MessageRoute );
 
-app.use('')
 app.listen(PORT, () => {
   console.log("listening to port :", PORT);
 })
