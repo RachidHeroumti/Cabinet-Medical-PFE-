@@ -1,6 +1,5 @@
-//const host='https://cabinetmedicalserver.onrender.com/pfe/api'
-//const host ='http://localhost:5000/pfe/api'
-const host ='http://44.201.248.88:5000/pfe/api'
+const host='https://cabinetmedicalserver.onrender.com/pfe/api'
+
 export const registerRoute=`${host}/register` ;
 export const loginRoute=`${host}/login`;
 
