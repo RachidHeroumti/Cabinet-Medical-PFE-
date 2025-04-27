@@ -14,7 +14,7 @@ const app = expres();
 const PORT = process.env.PORT || 3000;
 
 app.use(expres.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 ConnectDB();
 
