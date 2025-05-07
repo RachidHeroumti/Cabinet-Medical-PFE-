@@ -26,6 +26,10 @@ app.use("/pfe/api/test", TestRout);
 app.use("/pfe/api/note", NoteRoute );
 app.use("/pfe/api/message", MessageRoute );
 
+app.get('/',(req,res)=>{
+  res.json({message :'404 not found'})
+})
+
 app.listen(PORT, () => {
   console.log("listening to port :", PORT);
 })
