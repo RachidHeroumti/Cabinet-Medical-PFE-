@@ -1,12 +1,12 @@
-//const host='https://cabinetmedicalserver.onrender.com/pfe/api'
+//const host='http://localhost:5002/api'
 //const host ='http://44.201.248.88:5000/pfe/api'
-const host ='https://cabinet-medical-pfe.vercel.app/pfe/api'
+const host ='https://cabinet-api.vercel.app/api'
 export const registerRoute=`${host}/register` ;
 export const loginRoute=`${host}/login`;
 
-export const getPatientsRoute=`${host}/get-patients`;
-export const getDoctorsRoute=`${host}/get-doctors`;
-export const getUserBycinRoute=`${host}/get-userbycin`;
+export const getPatientsRoute=`${host}/users/get-patients`;
+export const getDoctorsRoute=`${host}/users/get-doctors`;
+export const getUserBycinRoute=`${host}/users/get-userbycin`;
 
 export const getDepartmetRoute=`${host}/dep/get-deps`;
 
