@@ -60,7 +60,7 @@ const NavBar = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-sky-800/70 z-0"></div>
+     { !menuOpen&&<div className="absolute inset-0 bg-sky-800/70 z-0"></div>}
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <motion.div
@@ -122,7 +122,7 @@ const NavBar = () => {
         {menuOpen && (
           <motion.div
             ref={menuRef}
-            className="md:hidden bg-gradient-to-b from-sky-500 to-sky-600 text-white px-6 py-6 space-y-4"
+            className="md:hidden bg-gradient-to-b from-sky-500 to-sky-600 text-white px-6 py-6 space-y-4 z-5"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
