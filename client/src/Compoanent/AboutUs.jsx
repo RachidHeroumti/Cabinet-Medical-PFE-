@@ -1,29 +1,30 @@
-import React from 'react'
+import React from 'react';
 
 export default function About() {
   return (
-    <div className=' p-4 pt-40 flex bg-sky-50 my-3 ' id='about'>
-        <div className=' grid sm:grid-cols-2 gap-5'>
-            <div className='text-xl flex flex-col space-y-4'>
-                <h1 className=' text-2xl font-bold text-center'>Doctori</h1>
-                <p className=' text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae vitae, 
-                    iste magni temporibus reiciendis dicta placeat fuga provident minima dolor quo, 
-                    aperiam deserunt facilis, nihil quis laborum dolorem voluptas omnis?</p>
-                 <p className=' text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Et sapiente aspernatur blanditiis rerum ipsa atque quia. Eius aspernatur,
-                  deserunt fugit voluptate dolorum nemo dicta perspiciatis esse quod, reiciendis accusantium cumque.</p>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime unde mollitia error excepturi odit impedit minima eligendi
-                    
-                  </p>
-                  <p className='sm:p-5 text-center text-gray-500'>And more ...</p>
-            </div>
-            <div>
-                <img src='https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg?auto=compress&cs=tinysrgb&w=600' alt='mashatiIcon'
-                  className='w-[400] h-[450] rounded'/>
-            </div>
-
+    <section id="about" className="bg-sky-50 py-20 px-6">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        <div className="space-y-6 text-center md:text-left">
+          <h2 className="text-3xl font-bold text-sky-900">Doctori</h2>
+          <p className="text-gray-700">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae vitae, iste magni temporibus reiciendis dicta placeat fuga provident minima dolor quo, aperiam deserunt facilis, nihil quis laborum dolorem voluptas omnis?
+          </p>
+          <p className="text-gray-700">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente aspernatur blanditiis rerum ipsa atque quia. Eius aspernatur, deserunt fugit voluptate dolorum nemo dicta perspiciatis esse quod, reiciendis accusantium cumque.
+          </p>
+          <p className="text-gray-700">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime unde mollitia error excepturi odit impedit minima eligendi.
+          </p>
+          <p className="text-gray-500 font-medium">And more ...</p>
         </div>
-    </div>
-  )
+        <div className="flex justify-center">
+          <img
+            src="https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="Doctori illustration"
+            className="w-[300px] md:w-[400px] h-auto rounded-xl shadow-lg object-cover"
+          />
+        </div>
+      </div>
+    </section>
+  );
 }

@@ -5,7 +5,7 @@ import Login from './Pages/login'
 import Register from './Pages/Register'
 import Profile from './Compoanent/Profile'
 import DoctorDashbord from './Compoanent/DoctorDashbord'
-import NavBar from './Compoanent/NavBar'
+import NavBar from './Compoanent/global/NavBar.jsx'
 
 function App() {
 

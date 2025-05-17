@@ -1,35 +1,34 @@
-import React from 'react'
+import React from 'react';
 import Conversation from './Conversation';
 import Messages from './Messages';
 
-const Chat = () => {
-    return (
-        <div className="">
-            <div className="flex bg-white dark:bg-gray-900">
-              
-
-
-                <div className="w-80 h-screen dark:bg-gray-800 bg-gray-100 p-2 hidden md:block">
-                    <div className="h-full overflow-y-auto">
-                        <div className="text-xl font-extrabold text-gray-600 dark:text-gray-200 p-3">Chats</div>
-                        <div className="search-chat flex p-3">
-                            <input className="input text-gray-700 dark:text-gray-200 text-sm p-3 focus:outline-none bg-gray-200 dark:bg-gray-700  w-full rounded-l-md" type="text" placeholder="Search Messages"/>
-                            <div className="bg-gray-200 dark:bg-gray-700 flex justify-center items-center pr-3 text-gray-400 rounded-r-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div className="text-lg font-semibol text-gray-600 dark:text-gray-200 p-3">Recent</div>
-                        <Conversation/>
-                    </div>
-                </div>               
-                <div className="flex-grow  h-screen p-2 rounded-md">
-                        <Messages/>
-                </div>
+export default function Chat() {
+  return (
+    <div className="bg-sky-50 min-h-screen pt-24 px-4">
+      <div className="flex rounded-lg overflow-hidden shadow-lg bg-white">
+        <aside className="w-80 hidden md:block bg-sky-100 border-r border-sky-200">
+          <div className="h-full overflow-y-auto">
+            <div className="text-xl font-bold text-sky-800 p-4">Chats</div>
+            <div className="flex px-4 pb-4">
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                className="w-full px-3 py-2 rounded-l-md bg-white border border-sky-200 text-sky-900 focus:outline-none"
+              />
+              <div className="bg-white border border-l-0 border-sky-200 rounded-r-md flex items-center px-3 text-sky-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
             </div>
-        </div>
-    )
+            <div className="text-sm text-sky-600 font-semibold px-4 mb-2">Récents</div>
+            <Conversation />
+          </div>
+        </aside>
+        <main className="flex-grow bg-white">
+          <Messages />
+        </main>
+      </div>
+    </div>
+  );
 }
-
-export default Chat

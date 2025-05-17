@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Cabstate } from '../Context/cabinatProvider';
 import CustomCheckbox from '../Compoanent/CssCompoanent/CustomCheckbox';
+import { loginRoute } from '../Routes/routes';
 
 
 function Login() {
@@ -35,7 +36,7 @@ const handleCheckboxChange = (e) => {
     else{
 
       try{
-        const res = await  axios.post("http://localhost:5000/pfe/api/login",{
+        const res = await  axios.post(loginRoute,{
           email,password
         })
     
